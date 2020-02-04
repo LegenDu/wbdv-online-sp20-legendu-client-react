@@ -28,8 +28,8 @@ class CourseCardStatefulComponent extends React.Component{
 
     render (){
         return (
-            <div className="border card-deck col col-12 col-sm-6 col-md-4 col-lg-2 px-0 mx-2 my-2" style={{maxWidth: '18rem'}}>
-                <img src={require('./card.jpg')} className="card-img-top border-bottom" style={{height: '200px'}}/>
+            <div className="border card-deck col col-12 col-sm-6 col-md-4 col-lg-2 px-0 mx-2 my-2" style={{maxWidth: '18rem', minWidth: '15rem'}}>
+                <img src={require('./card.jpg')} className="card-img-top border-bottom" style={{minHeight: '150px'}}/>
                 <div className="card-body">
                     {
                         this.state.editing && 
@@ -42,8 +42,8 @@ class CourseCardStatefulComponent extends React.Component{
                     }
                     {
                         !this.state.editing &&
-                        <a href="#" style={{color: 'black'}}>
-                            <h6 className="card-title text-truncate" style={{}}>
+                        <a href="#" style={{color: 'black'}} onClick={() => this.props.showCourseEditor(this.props.course.title)}>
+                            <h6 className="card-title text-truncate" style={{width: '13rem'}}>
                                 {this.state.courseTitle}</h6>
                         </a>
                     }

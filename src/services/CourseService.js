@@ -18,8 +18,8 @@ class CourseService {
         return fetch(`${API_URL}/${courseId}`,
             {method: 'DELETE'}).then(response => response.json())
     } 
-    updateCourse = (courseId, course) => {
-        return fetch(`${API_URL}/${courseId}`, {
+    updateCourse = (course) => {
+        return fetch(`${API_URL}/${course._id}`, {
             method: 'PUT',
             body: JSON.stringify(course),
             headers: {

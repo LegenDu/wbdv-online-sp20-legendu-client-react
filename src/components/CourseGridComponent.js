@@ -1,7 +1,7 @@
 import React from 'react';
 import CourseCardStatefulComponent from './CourseCardStatefulComponent'
 
-const CourseGridComponent = ({deleteCourse, updateCourse, courses}) => 
+const CourseGridComponent = ({deleteCourse, updateCourse, showCourseEditor, courses}) => 
     <div className="row d-flex justify-content-start" style={{marginLeft: '10px', marginRight: '10px'}}>
         {
             courses.map(function(course, index) {
@@ -10,6 +10,7 @@ const CourseGridComponent = ({deleteCourse, updateCourse, courses}) =>
                         key={course._id}
                         deleteCourse={deleteCourse}
                         updateCourse={updateCourse}
+                        showCourseEditor={showCourseEditor}
                         course={course}/>
                 )
             })

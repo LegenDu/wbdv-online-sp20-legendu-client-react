@@ -58,7 +58,7 @@ class CourseRowStatefulComponent extends React.Component {
                     <div className="row py-auto">
                         <div className="col-10 col-md-6 col-lg-5">
                             <a href="#" style={{color: 'white'}}
-                                onClick={() => this.props.ShowCourseEditor(this.props.course.title)}>{this.props.course.title}</a>
+                                onClick={() => this.props.showCourseEditor(this.props.course.title)}>{this.props.course.title}</a>
                         </div>
                         <div className="col-md-4 col-lg-2 d-none d-md-block">
                             {this.props.course.ownedby}

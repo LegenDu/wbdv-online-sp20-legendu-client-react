@@ -43,7 +43,8 @@ class CourseManagerContainer extends React.Component {
 
     updateCourse = (newCourseTitle, course) => {
         course.title = newCourseTitle
-        courseService.updateCourse(course._id, course)
+        course.lastmodified = new Date().getMonth() + "/" + new Date().getDate() + "/" +new Date().getFullYear()
+        courseService.updateCourse(course)
             .then(status => {
                 return courseService.findAllCourses()
             }).then(courses => {
@@ -93,8 +94,7 @@ class CourseManagerContainer extends React.Component {
             })}))
     }
 
-    ShowCourseEditor = (courseTitle) => {
-        console.log('opening')
+    showCourseEditor = (courseTitle) => {
         this.setState(prevState => ({
             editingCourse: true
         }))
@@ -108,10 +108,11 @@ class CourseManagerContainer extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid mx-0 px-0">
+            <div className="container-fluid mx-0 px-0" style={{width: '100%'}}>
 
                 {
-                    this.state.editingCourse && <CourseEditorComponent/>
+                    this.state.editingCourse && <CourseEditorComponent
+                                                    closeEditCoursePage={this.closeEditCoursePage}/>
                 }
 
                 {
@@ -138,34 +139,43 @@ class CourseManagerContainer extends React.Component {
                         <div className="row border" style={{height: '50px'}}>
                             {
                                 this.state.layout === "table" && 
-                                <div className="col-9 col-sm-10 col-md-6 col-lg-5 my-auto"><span className="mx-2">Title</span></div>
+                                <div className="col-8 col-md-5 col-lg-5 my-auto"><span className="ml-2">Title</span></div>
                             }
                             {
                                 this.state.layout === "grid" && 
-                                <div className="col-9 col-sm-10 my-auto"><span className="mx-2">Recent Documents</span></div>
+                                <div className="col-7 my-auto"><span className="ml-2">Recent Documents</span></div>
                             }
                             {
                                 this.state.layout === "table" &&
-                                <div className="col-md-4 col-lg-2 d-none d-md-block my-auto">Owned By</div>
+                                <div className="col-md-4 col-lg-2 d-none d-md-block my-auto">Owned By 
+                                    <select className="ml-1">
+                                        <option selected="selected">me</option>
+                                    </select>
+                                </div>
                             }
                             {
                                 this.state.layout === "table" &&
                                 <div className="col-lg-3 d-none d-lg-block my-auto">Last Modified</div>
                             }
-                            <div className="col-3 col-sm-2 my-auto">
-                                <span className="" style={{float:'right'}}>
-                                    {
-                                        this.state.layout === "grid" &&
+                            {
+                                this.state.layout === "grid" && 
+                                <div className="col-5 my-auto">
+                                    <span className="" style={{float:'right'}}>
                                         <i className="btn btn-primary fas fa-list mr-1" onClick={this.toggle}></i>
-                                    }
-                                    {
-                                        this.state.layout === "table" &&
+                                        <i className="btn btn-primary fas fa-sort-alpha-down mr-1"></i>
+                                        <i className="btn btn-primary far fa-folder"></i>
+                                    </span>
+                                </div>
+                            }
+                            {
+                                this.state.layout === "table" &&
+                                <div className="col-4 col-md-2 col-lg-2 my-auto">
+                                    <span className="" style={{float:'right'}}>
                                         <i className="btn btn-primary fas fa-th mr-1" onClick={this.toggle}></i>
-                                    }
-                                    <i class="btn btn-primary fas fa-sort-alpha-down"></i>
-                                    
-                                </span>
-                            </div>
+                                        <i className="btn btn-primary fas fa-sort-alpha-down"></i>
+                                    </span>
+                                </div>
+                            }
                         </div>
                         
                         {
@@ -173,6 +183,7 @@ class CourseManagerContainer extends React.Component {
                             <CourseGridComponent 
                                 deleteCourse={this.deleteCourse}
                                 updateCourse={this.updateCourse}
+                                showCourseEditor={this.showCourseEditor}
                                 courses={this.state.courses}/>
                         }
                         {
@@ -181,7 +192,7 @@ class CourseManagerContainer extends React.Component {
                                 editCourse={this.editCourse}
                                 deleteCourse={this.deleteCourse}
                                 updateCourse={this.updateCourse}
-                                ShowCourseEditor={this.ShowCourseEditor}
+                                showCourseEditor={this.showCourseEditor}
                                 courses={this.state.courses}/>
                         }
                     </div>
