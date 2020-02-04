@@ -1,21 +1,19 @@
 import React from 'react';
-import CourseGridCardComponent from './CourseGridCardComponent'
+import CourseCardStatefulComponent from './CourseCardStatefulComponent'
 
-const CourseGridComponent = ({deleteCourse, courses}) => 
-    <div className="">
-        {/* <h3>Course Grid {courses.length}</h3> */}
-        <div className="row">
-            {
-                courses.map(function(course, index) {
-                    return (
-                        <CourseGridCardComponent
-                            key={course._id}
-                            deleteCourse={deleteCourse}
-                            course={course}/>
-                    )
-                })
-            }
-        </div>
+const CourseGridComponent = ({deleteCourse, updateCourse, courses}) => 
+    <div className="row d-flex justify-content-start" style={{marginLeft: '10px', marginRight: '10px'}}>
+        {
+            courses.map(function(course, index) {
+                return (
+                    <CourseCardStatefulComponent
+                        key={course._id}
+                        deleteCourse={deleteCourse}
+                        updateCourse={updateCourse}
+                        course={course}/>
+                )
+            })
+        }
     </div>
     
 

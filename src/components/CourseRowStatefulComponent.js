@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CourseRowComponentStateful extends React.Component {
+class CourseRowStatefulComponent extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -11,7 +11,12 @@ class CourseRowComponentStateful extends React.Component {
     }
     selectCourse = () => {
         this.setState(prevState => ({
-            active: true
+            active: !prevState.active
+        }))
+    }
+    cancelSelection = () => {
+        this.setState(prevState => ({
+            active: false
         }))
     }
     editCourse = () => {
@@ -26,7 +31,7 @@ class CourseRowComponentStateful extends React.Component {
     }
     saveCourse = () => {
         this.setState(prevState => ({
-            active: !prevState.active,
+            active: false,
             editing: false
         }))
         this.props.updateCourse(this.state.courseTitle, this.props.course)
@@ -34,11 +39,11 @@ class CourseRowComponentStateful extends React.Component {
 
     render() {
         return (
-            <li className={`list-group-item ${this.state.active?'active':''}`}>
+            <li className={`list-group-item border ${this.state.active?'active':''}`} style={{marginTop: '-1px'}}>
                 {!this.state.active && !this.state.editing &&
                     <div className="row" onClick={() => this.selectCourse()}>
                         <div className="col-10 col-md-6 col-lg-5">
-                            {this.props.course.title}
+                            <a href="#" style={{color: 'black'}}>{this.props.course.title}</a>
                         </div>
                         <div className="col-md-4 col-lg-2 d-none d-md-block">
                             {this.props.course.ownedby}
@@ -51,8 +56,15 @@ class CourseRowComponentStateful extends React.Component {
                 {
                     this.state.active && !this.state.editing &&
                     <div className="row py-auto">
-                        <div className="col-10">
-                            {this.props.course.title}
+                        <div className="col-10 col-md-6 col-lg-5">
+                            <a href="#" style={{color: 'white'}}
+                                onClick={() => this.props.ShowCourseEditor(this.props.course.title)}>{this.props.course.title}</a>
+                        </div>
+                        <div className="col-md-4 col-lg-2 d-none d-md-block">
+                            {this.props.course.ownedby}
+                        </div>
+                        <div className="col-lg-3 d-none d-lg-block">
+                            {this.props.course.lastmodified}
                         </div>
                         <div className="col-2">
                             <span style={{float: 'right'}}>
@@ -80,4 +92,4 @@ class CourseRowComponentStateful extends React.Component {
     }
 }
 
-export default CourseRowComponentStateful
+export default CourseRowStatefulComponent

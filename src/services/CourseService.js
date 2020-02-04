@@ -17,8 +17,7 @@ class CourseService {
     deleteCourse = (courseId) => {
         return fetch(`${API_URL}/${courseId}`,
             {method: 'DELETE'}).then(response => response.json())
-    }
-    //findCourseById(id), 
+    } 
     updateCourse = (courseId, course) => {
         return fetch(`${API_URL}/${courseId}`, {
             method: 'PUT',
@@ -27,6 +26,10 @@ class CourseService {
                 "content-type": "application/json"
             }
         }).then(response => response.json())
+    }
+    findCourseById = (courseId) => {
+        return fetch(`${API_URL}/${courseId}`)
+            .then(response => response.json())
     }
 }
 
