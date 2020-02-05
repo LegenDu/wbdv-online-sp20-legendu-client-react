@@ -28,8 +28,8 @@ class CourseCardStatefulComponent extends React.Component{
 
     render (){
         return (
-            <div className="border card-deck col col-12 col-sm-6 col-md-4 col-lg-2 px-0 mx-2 my-2" style={{maxWidth: '18rem', minWidth: '15rem'}}>
-                <img src={require('./card.jpg')} className="card-img-top border-bottom" style={{minHeight: '150px'}}/>
+            <div className="border card-deck col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 px-0 mx-2 my-2" style={{maxWidth: '18rem', minWidth: '15rem'}}>
+                <img src={require('./card.jpg')} className="card-img-top border-bottom" style={{minHeight: '120px'}}/>  
                 <div className="card-body">
                     {
                         this.state.editing && 
@@ -48,8 +48,8 @@ class CourseCardStatefulComponent extends React.Component{
                         </a>
                     }
                     <p className="card-text">
-                        <small className="text-muted mr-1"><i class="far fa-file-alt"></i></small>
-                        <small className="text-muted mr-1"><i class="fas fa-user-friends"></i></small>
+                        <small className="text-muted mr-1"><i className="far fa-file-alt"></i></small>
+                        <small className="text-muted mr-1"><i className="fas fa-user-friends"></i></small>
                         <small className="text-muted">Modified {this.props.course.lastmodified}</small>
                         {
                             !this.state.editing &&
@@ -58,7 +58,6 @@ class CourseCardStatefulComponent extends React.Component{
                                 <i className="btn mx-1 px-0 fas fa-trash-alt" onClick={() => this.props.deleteCourse(this.props.course)}></i>
                             </small>  
                         }
-                        
                     </p>
                 </div>
                 

@@ -13,7 +13,8 @@ class CourseManagerContainer extends React.Component {
         newCourseTitle: 'New Course',
         courses : [],
         editing: false,
-        editingCourse: false
+        editingCourse: false,
+        editCourseTitle: 'Course Editor'
     }
 
     componentDidMount() {
@@ -34,11 +35,6 @@ class CourseManagerContainer extends React.Component {
                     courses: courses
                 })
             })
-        // this.setState((prevState) => ({
-        //     courses: prevState.courses.filter(course => 
-        //         course._id !== courseToDelete._id)
-        //     })
-        // )
     }
 
     updateCourse = (newCourseTitle, course) => {
@@ -58,7 +54,7 @@ class CourseManagerContainer extends React.Component {
         courseService.createCourse({
             title: this.state.newCourseTitle,
             ownedby: "me",
-            lastmodified: "1/1/2020"
+            lastmodified: new Date().getMonth() + "/" + new Date().getDate() + "/" +new Date().getFullYear()
         }).then(actual => {
             return courseService.findAllCourses()
         }).then(courses => {
@@ -96,7 +92,8 @@ class CourseManagerContainer extends React.Component {
 
     showCourseEditor = (courseTitle) => {
         this.setState(prevState => ({
-            editingCourse: true
+            editingCourse: true,
+            editCourseTitle: courseTitle
         }))
     }
 
@@ -112,6 +109,7 @@ class CourseManagerContainer extends React.Component {
 
                 {
                     this.state.editingCourse && <CourseEditorComponent
+                                                    courseTitle={this.state.editCourseTitle}
                                                     closeEditCoursePage={this.closeEditCoursePage}/>
                 }
 
@@ -143,7 +141,7 @@ class CourseManagerContainer extends React.Component {
                             }
                             {
                                 this.state.layout === "grid" && 
-                                <div className="col-7 my-auto"><span className="ml-2">Recent Documents</span></div>
+                                <div className="col-7 my-auto"><span className="ml-2 pl-2">Recent Documents</span></div>
                             }
                             {
                                 this.state.layout === "table" &&

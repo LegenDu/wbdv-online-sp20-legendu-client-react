@@ -14,7 +14,7 @@ class CourseEditorComponent extends React.Component{
                         <a className="btn btn-dark wbdv-course-editor wbdv-close" href="#"
                             onClick={() => this.props.closeEditCoursePage()}>✕</a>
                     </div>
-                    <a className="navbar-brand wbdv-course-title" href="#">Course Editor</a>
+                    <a className="navbar-brand wbdv-course-title" href="#">{this.props.courseTitle}</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
