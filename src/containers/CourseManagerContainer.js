@@ -1,10 +1,7 @@
 import React from 'react';
-// import CourseHeadingComponent from "../components/CourseHeadingComponent"
-import CourseTableComponent from "../components/CourseTableComponent"
-import CourseGridComponent from "../components/CourseGridComponent"
-// import CourseEditorComponent from '../components/course-editor/CourseEditorComponent'
 import CourseEditorComponent from "../components/courseEditor/CourseEditorComponent"
 import  {createCourse, findAllCourses, deleteCourse, updateCourse, findCourseById} from "../services/CourseService"
+import CourseListComponent from '../components/CourseListComponent';
 
 
 class CourseManagerContainer extends React.Component {
@@ -65,7 +62,7 @@ class CourseManagerContainer extends React.Component {
         }))
     }
 
-    udpateFormState = (event) => {
+    updateFormState = (event) => {
         this.setState({
             newCourseTitle: event.target.value
         })
@@ -108,86 +105,17 @@ class CourseManagerContainer extends React.Component {
                 }
 
                 {
-                    !this.state.editingCourse &&
-                    <div>
-                        <div className="row border" style={{height: '60px', marginLeft: '0px'}}>
-                            <div className="col-1 my-auto">
-                                <i className="fas fa-bars fa-2x"></i>  
-                            </div>
-                            <div className="col-md-3 d-none d-md-block my-auto px-0">
-                                <span className="" style={{font: '1.5rem bold'}}>Course Manager</span>
-                            </div>
-                            <div className="col-9 col-md-6 my-auto px-0">
-                                <input 
-                                    className="px-0 mx-0"
-                                    onChange={this.udpateFormState}
-                                    value={this.state.newCourseTitle} 
-                                    placeholder="New Course Title"
-                                    style={{minWidth: '400px', width: '100%'}}/>
-                            </div>
-                            <div className="col-2 my-auto"><i className="btn btn-danger fas fa-plus-circle" onClick={this.addCourse}></i></div>   
-                        </div>
-
-                        <div className="row border" style={{height: '50px'}}>
-                            {
-                                this.state.layout === "table" && 
-                                <div className="col-8 col-md-5 col-lg-5 my-auto"><span className="ml-2">Title</span></div>
-                            }
-                            {
-                                this.state.layout === "grid" && 
-                                <div className="col-7 my-auto"><span className="ml-2 pl-2">Recent Documents</span></div>
-                            }
-                            {
-                                this.state.layout === "table" &&
-                                <div className="col-md-4 col-lg-2 d-none d-md-block my-auto">Owned By 
-                                    <select className="ml-1">
-                                        <option selected="selected">me</option>
-                                    </select>
-                                </div>
-                            }
-                            {
-                                this.state.layout === "table" &&
-                                <div className="col-lg-3 d-none d-lg-block my-auto">Last Modified</div>
-                            }
-                            {
-                                this.state.layout === "grid" && 
-                                <div className="col-5 my-auto">
-                                    <span className="" style={{float:'right'}}>
-                                        <i className="btn btn-primary fas fa-list mr-1" onClick={this.toggle}></i>
-                                        <i className="btn btn-primary fas fa-sort-alpha-down mr-1"></i>
-                                        <i className="btn btn-primary far fa-folder"></i>
-                                    </span>
-                                </div>
-                            }
-                            {
-                                this.state.layout === "table" &&
-                                <div className="col-4 col-md-2 col-lg-2 my-auto">
-                                    <span className="" style={{float:'right'}}>
-                                        <i className="btn btn-primary fas fa-th mr-1" onClick={this.toggle}></i>
-                                        <i className="btn btn-primary fas fa-sort-alpha-down"></i>
-                                    </span>
-                                </div>
-                            }
-                        </div>
-                        
-                        {
-                            this.state.layout === "grid" && 
-                            <CourseGridComponent 
-                                deleteCourse={this.deleteCourse}
-                                updateCourse={this.updateCourse}
-                                showCourseEditor={this.showCourseEditor}
-                                courses={this.state.courses}/>
-                        }
-                        {
-                            this.state.layout === "table" &&
-                            <CourseTableComponent 
-                                editCourse={this.editCourse}
-                                deleteCourse={this.deleteCourse}
-                                updateCourse={this.updateCourse}
-                                showCourseEditor={this.showCourseEditor}
-                                courses={this.state.courses}/>
-                        }
-                    </div>
+                    !this.state.editingCourse && <CourseListComponent
+                                                    updateFormState={this.updateFormState}
+                                                    newCourseTitle={this.state.newCourseTitle}
+                                                    addCourse={this.addCourse}
+                                                    deleteCourse={this.deleteCourse}
+                                                    updateCourse={this.updateCourse}
+                                                    toggle={this.toggle}
+                                                    courses={this.state.courses}
+                                                    layout={this.state.layout}
+                                                    showCourseEditor={this.showCourseEditor}
+                                                    editCourse={this.editCourse}/>
                 }
             </div>
         );
