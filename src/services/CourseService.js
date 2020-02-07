@@ -1,36 +1,42 @@
 import {API_URL} from "../common/constants"
 
-class CourseService {
-    createCourse = (course) => {
-        return fetch(`${API_URL}`, {
+// class CourseService {
+    export const createCourse = async (course) => {
+        let response = await fetch(`${API_URL}`, {
             method: 'POST',
             body: JSON.stringify(course),
             headers: {
                 'content-type': 'application/json'
             }
-        }).then(response => response.json())
+        })
+        return response.json()
     }
-    findAllCourses = () => {
-        return fetch(`${API_URL}`)
-            .then(response => response.json())
+    
+    export const findAllCourses = async () => {
+        let response = await fetch(`${API_URL}`)
+        return response.json()
     }
-    deleteCourse = (courseId) => {
-        return fetch(`${API_URL}/${courseId}`,
-            {method: 'DELETE'}).then(response => response.json())
+    
+    export const deleteCourse = async (courseId) => {
+        let response = await fetch(`${API_URL}/${courseId}`, {method: 'DELETE'})
+        return response.json()
     } 
-    updateCourse = (course) => {
-        return fetch(`${API_URL}/${course._id}`, {
+    
+    export const updateCourse = async (course) => {
+        let response = await fetch(`${API_URL}/${course._id}`, {
             method: 'PUT',
             body: JSON.stringify(course),
             headers: {
                 "content-type": "application/json"
             }
-        }).then(response => response.json())
+        })
+        return response.json()
     }
-    findCourseById = (courseId) => {
-        return fetch(`${API_URL}/${courseId}`)
-            .then(response => response.json())
+    
+    export const findCourseById = async (courseId) => {
+        let response = await fetch(`${API_URL}/${courseId}`)
+        return response.json()
     }
-}
+// }
 
-export default CourseService
+// export default CourseService

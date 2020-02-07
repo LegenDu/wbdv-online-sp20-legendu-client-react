@@ -2,10 +2,10 @@ import React from 'react';
 // import CourseHeadingComponent from "../components/CourseHeadingComponent"
 import CourseTableComponent from "../components/CourseTableComponent"
 import CourseGridComponent from "../components/CourseGridComponent"
-import CourseService from '../services/CourseService'
-import CourseEditorComponent from '../components/course-editor/CourseEditorComponent'
+// import CourseEditorComponent from '../components/course-editor/CourseEditorComponent'
+import CourseEditorComponent from "../components/courseEditor/CourseEditorComponent"
+import  {createCourse, findAllCourses, deleteCourse, updateCourse, findCourseById} from "../services/CourseService"
 
-const courseService = new CourseService()
 
 class CourseManagerContainer extends React.Component {
     state = {
@@ -17,32 +17,27 @@ class CourseManagerContainer extends React.Component {
         editCourseTitle: 'Course Editor'
     }
 
-    componentDidMount() {
-        courseService.findAllCourses()
-            .then(courses => {
-                this.setState({
-                    courses: courses
-                })
-            })
+    componentDidMount = async () => {
+        const courses = await findAllCourses()
+        this.setState({
+            courses: courses
+        })
     }
 
-    deleteCourse = (courseToDelete) => {
-        courseService.deleteCourse(courseToDelete._id)
-            .then(status => {
-                return courseService.findAllCourses()
-            }).then(courses => {
-                this.setState({
-                    courses: courses
-                })
-            })
+    deleteCourse = async (courseToDelete) => {
+        const status = await deleteCourse(courseToDelete._id)
+        const courses = await findAllCourses()
+        this.setState({
+            courses: courses
+        })
     }
 
     updateCourse = (newCourseTitle, course) => {
         course.title = newCourseTitle
         course.lastmodified = new Date().getMonth() + "/" + new Date().getDate() + "/" +new Date().getFullYear()
-        courseService.updateCourse(course)
+        updateCourse(course)
             .then(status => {
-                return courseService.findAllCourses()
+                return findAllCourses()
             }).then(courses => {
                 this.setState({
                     courses: courses
@@ -51,12 +46,12 @@ class CourseManagerContainer extends React.Component {
     }
 
     addCourse = () => {
-        courseService.createCourse({
+        createCourse({
             title: this.state.newCourseTitle,
             ownedby: "me",
             lastmodified: new Date().getMonth() + "/" + new Date().getDate() + "/" +new Date().getFullYear()
         }).then(actual => {
-            return courseService.findAllCourses()
+            return findAllCourses()
         }).then(courses => {
             this.setState({
                 courses: courses
@@ -106,7 +101,6 @@ class CourseManagerContainer extends React.Component {
     render() {
         return (
             <div className="container-fluid mx-0 px-0" style={{width: '100%'}}>
-
                 {
                     this.state.editingCourse && <CourseEditorComponent
                                                     courseTitle={this.state.editCourseTitle}
