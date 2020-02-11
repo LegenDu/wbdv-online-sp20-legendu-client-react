@@ -1,12 +1,12 @@
 import React from "react";
-import CourseTableComponent from "../components/CourseTableComponent"
-import CourseGridComponent from "../components/CourseGridComponent"
+import CourseTableComponent from "./CourseTableComponent"
+import CourseGridComponent from "./CourseGridComponent"
 
 const CourseListComponent = ({updateFormState, 
                             newCourseTitle, 
                             addCourse, deleteCourse, updateCourse,
                             toggle, 
-                            courses, layout, showCourseEditor, editCourse}) =>
+                            courses, layout, editCourse}) =>
         <div>
             <div className="row border" style={{height: '60px', marginLeft: '0px'}}>
                 <div className="col-1 my-auto">
@@ -73,7 +73,6 @@ const CourseListComponent = ({updateFormState,
                 <CourseGridComponent 
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
-                    showCourseEditor={showCourseEditor}
                     courses={courses}/>
             }
             {
@@ -82,7 +81,6 @@ const CourseListComponent = ({updateFormState,
                     editCourse={editCourse}
                     deleteCourse={deleteCourse}
                     updateCourse={updateCourse}
-                    showCourseEditor={showCourseEditor}
                     courses={courses}/>
             }
         </div>

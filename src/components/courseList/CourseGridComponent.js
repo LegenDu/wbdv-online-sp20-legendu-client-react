@@ -1,7 +1,7 @@
 import React from 'react';
 import CourseCardStatefulComponent from './CourseCardStatefulComponent'
 
-const CourseGridComponent = ({deleteCourse, updateCourse, showCourseEditor, courses}) => 
+const CourseGridComponent = ({deleteCourse, updateCourse, courses}) => 
     <div>
         <div className="row" style={{marginLeft: '10px', marginRight: '10px'}}>
             {
@@ -11,7 +11,6 @@ const CourseGridComponent = ({deleteCourse, updateCourse, showCourseEditor, cour
                             key={course._id}
                             deleteCourse={deleteCourse}
                             updateCourse={updateCourse}
-                            showCourseEditor={showCourseEditor}
                             course={course}/>
                     )
                 })

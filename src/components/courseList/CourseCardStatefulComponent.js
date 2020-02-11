@@ -42,10 +42,11 @@ class CourseCardStatefulComponent extends React.Component{
                     }
                     {
                         !this.state.editing &&
-                        <a href="#" style={{color: 'black'}} onClick={() => this.props.showCourseEditor(this.props.course.title)}>
-                            <h6 className="card-title text-truncate" style={{width: '13rem'}}>
-                                {this.state.courseTitle}</h6>
-                        </a>
+                        <Link to="/course-editor">
+                            <h6 className="card-title text-truncate" style={{width: '13rem', color: 'black'}}>
+                                {this.state.courseTitle}
+                            </h6>
+                        </Link>
                     }
                     <p className="card-text">
                         <small className="text-muted mr-1"><i className="far fa-file-alt"></i></small>

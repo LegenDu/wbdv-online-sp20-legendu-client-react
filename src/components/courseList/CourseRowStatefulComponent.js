@@ -1,4 +1,6 @@
 import React from 'react';
+import {BrowserRouter as Router, Route, Link} from "react-router-dom"
+
 
 class CourseRowStatefulComponent extends React.Component {
     constructor(props) {
@@ -43,7 +45,9 @@ class CourseRowStatefulComponent extends React.Component {
                 {!this.state.active && !this.state.editing &&
                     <div className="row" onClick={() => this.selectCourse()}>
                         <div className="col-10 col-md-6 col-lg-5">
-                            <a href="#" style={{color: 'black'}}>{this.props.course.title}</a>
+                            <Link to={`/course-editor/${this.props.course._id}`}>
+                                <span style={{color: 'black'}}>{this.props.course.title}</span>
+                            </Link>
                         </div>
                         <div className="col-md-4 col-lg-2 d-none d-md-block">
                             {this.props.course.ownedby}
@@ -57,8 +61,7 @@ class CourseRowStatefulComponent extends React.Component {
                     this.state.active && !this.state.editing &&
                     <div className="row py-auto">
                         <div className="col-10 col-md-6 col-lg-5">
-                            <a href="#" style={{color: 'white'}}
-                                onClick={() => this.props.showCourseEditor(this.props.course.title)}>{this.props.course.title}</a>
+                            <a href="#" style={{color: 'white'}}>{this.props.course.title}</a>
                         </div>
                         <div className="col-md-4 col-lg-2 d-none d-md-block">
                             {this.props.course.ownedby}
