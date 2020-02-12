@@ -1,14 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import {LESSONS_API_URL, MODULES_LESSONS_API_URL} from "../../common/constants";
 import {updateLesson, findLessonsForModule, createLesson, deleteLesson, findAllLessons} from "../../services/LessonService";
-import {CREATE_LESSON, UPDATE_LESSON, FIND_ALL_LESSONS, DELETE_LESSON} from "../../actions/LessonActions"
+import {CREATE_LESSON, UPDATE_LESSON, DELETE_LESSON} from "../../actions/LessonActions"
 import {findLessonsForModuleAction, createLessonAction, updateLessonAction, deleteLessonAction, findAllLessonsAction} from "../../actions/LessonActions" 
 
 class LessonTabsComponent extends React.Component {
     componentDidMount(){
-        // this.props.findLessonsForModule(this.props.courseId)
-        this.props.findAllLessons()
+        this.props.findLessonsForModule(this.props.moduleId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.moduleId !== prevProps.moduleId) {
@@ -18,24 +16,28 @@ class LessonTabsComponent extends React.Component {
     state = {
         selectedLessonId: '',
         editingLessonId: '',
-        editinglesson: {
+        lesson: {
             title: '',
             _id: ''
         }
     }
+    
     render () {
         return(
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     {
+                        console.log("moduleId: ", this.props.moduleId)
+                    }
+                    {
                         this.props.lessons && this.props.lessons.map(lesson => 
                             <li className="nav-item mx-2 my-1 py-0 px-4"
                                 onClick={() => {
-                                    console.log(this.props.moduleId)
-                                    // this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)
                                     this.setState({
                                         selectedLessonId: lesson._id
-                                })}}
+                                    })
+                                    this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)    
+                                }}
                                 key={lesson._id}>
                                 <a className={`nav-link
                                     ${(this.state.editingLessonId === lesson._id || this.state.selectedLessonId === lesson._id)?'active': ''}`}>
@@ -64,11 +66,17 @@ class LessonTabsComponent extends React.Component {
                                             }}
                                             value={this.state.lesson.title}/>
                                             <span>
-                                                <span onClick={()=>this.props.deleteLesson(lesson._id)}>
+                                                <span onClick={()=> {
+                                                    this.props.deleteLesson(lesson._id)
+                                                    .then(() =>
+                                                        this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}`)
+                                                    )
+                                                }}>
                                                     <i className="fas fa-trash-alt mr-1"></i>
                                                 </span>
                                                 <span onClick={()=>this.props.updateLesson(this.state.lesson)
-                                                    .then(()=>this.setState({editingLessonId:''}))}>
+                                                    .then(()=>this.setState(
+                                                        {editingLessonId:''}))}>
                                                     <i className="fas fa-check"></i>
                                                 </span>
                                             </span>
@@ -105,7 +113,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
         createLesson(moduleId)
         .then(actualLesson =>
             dispatcher(createLessonAction(actualLesson))),
-    deleteLesson: (lessonId) =>
+    deleteLesson: async (lessonId) =>
         deleteLesson(lessonId)
         .then(status =>
             dispatcher({

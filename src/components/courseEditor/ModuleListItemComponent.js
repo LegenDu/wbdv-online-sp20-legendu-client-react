@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {COURSES_MODULES_API_URL, MODULES_API_URL} from "../../common/constants"
 import {updateModule} from "../../services/ModuleService"
 
-const ModuleListItemComponent = ({save, edit, editing, module, deleteModule, updateModule, active, select}) =>  
+const ModuleListItemComponent = ({save, edit, change, editing, module, deleteModule, updateModule, active, select}) =>  
     <li className={`list-group-item wbdv-module-item my-2 mx-3 rounded ${active ? 'active': ''}`}
         onClick={select}>
         {
@@ -19,11 +19,10 @@ const ModuleListItemComponent = ({save, edit, editing, module, deleteModule, upd
             editing &&
             <span>
                 <span>
-                    <input type="text" placeholder={`${module.title}`}
+                    <input type="text" value={`${module.title}`}
                         onChange={(e) => {
-                            const newTitle = e.target.value
-                            // this.props.setState(prevState => ({
-                            //     title: newTitle}))
+                            const title = e.target.value
+                            change(title)
                             }}
                         /></span>
                 <span>

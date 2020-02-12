@@ -97,7 +97,7 @@ class CourseManagerContainer extends React.Component {
                         editCourse={this.editCourse}/>}/>
 
                     <Route path="/course-editor/:courseId" 
-                           excat={true}
+                           exact={true}
                            render={(props) => 
                             <CourseEditorComponent 
                                 {...props}
@@ -118,6 +118,16 @@ class CourseManagerContainer extends React.Component {
                                 lessonId={props.match.params.lessonId}
                                 moduleId={props.match.params.moduleId}
                                 courseId={props.match.params.courseId}/>
+                            }/>
+                    <Route path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId/topic/:topicId"
+                           exact={true}
+                           render={(props) =>
+                           <CourseEditorComponent
+                                {...props}
+                                lessonId={props.match.params.lessonId}
+                                moduleId={props.match.params.moduleId}
+                                courseId={props.match.params.courseId}
+                                lessonId={props.match.params.lessonId}/>
                             }/>
                 </Router>
             </div>

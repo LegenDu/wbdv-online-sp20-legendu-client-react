@@ -1,22 +1,24 @@
 import React from "react";
 // import ModuleListComponent from "./ModuleListComponent";
 import LessonTabsComponent from "./LessonTabsComponent";
+import TopicPillsComponent from "./TopicPillsComponent"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux"
 import modules from '../../reducers/moduleReducer'
 import lessons from '../../reducers/lessonReducer'
+import topics from '../../reducers/topicReducer'
 // import {findCourseById} from "../../services/CourseService"
 import ModuleListContainer from "../../containers/ModuleListContainer"
 import './course-editor.style.client.css'
 
 const reducers = combineReducers({
-    modules, lessons
+    modules, lessons, topics
 })
 
 const store = createStore(reducers)
 
-const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, history}) =>
+const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, lessonId, history}) =>
     <Provider store={store}>
         <div>
             <div className="navbar wbdv-course-navbar navbar-expand-lg navbar-dark">
@@ -29,15 +31,14 @@ const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, history})
                     </Link>
                 </div>
                 <a className="navbar-brand wbdv-course-title">
-                    {/* {courseId} */}
-                    {match.params.courseId}
+                    {courseId}
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <LessonTabsComponent 
                     courseId={courseId}
-                    moduleId={moduleId}
+                    moduleId={match.params.moduleId}
                     history={history}/>    
             </div>
 
@@ -51,24 +52,11 @@ const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, history})
                     </div>
                     <div className="col-lg-8">
                         <div className="mt-3">
-                            
-                            <ul className="nav nav-pills wbdv-topic-pill-list">
-                                <li className="nav-item wbdv-topic-pill">
-                                    <a href="" className="nav-link btn py-0 mx-1 border">Topic 1</a>
-                                </li>
-                                <li className="nav-item wbdv-topic-pill">
-                                    <a href="" className="nav-link btn py-0 mx-1 border active">Topic 2</a>
-                                </li>
-                                <li className="nav-item wbdv-topic-pill">
-                                    <a href="" className="nav-link btn py-0 mx-1 border">Topic 3</a>
-                                </li>
-                                <li className="nav-item wbdv-topic-pill">
-                                    <a href="" className="nav-link btn py-0 mx-1 border">Topic 4</a>
-                                </li>
-                                <li className="nav-item wbdv-topic-pill">
-                                    <a href="" className="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border">+</a>
-                                </li>
-                            </ul>
+                            <TopicPillsComponent 
+                                courseId={courseId}
+                                moduleId={match.params.moduleId}
+                                lessonId={lessonId}
+                                history={history}/>
                         </div>
                         <ul className="list-group">
                             <li className="list-group-item mb-0 d-flex justify-content-end">

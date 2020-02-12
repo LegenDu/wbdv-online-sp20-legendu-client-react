@@ -27,10 +27,9 @@ const moduleReducer = (state={modules: []}, action) => {
                 modules: state.modules.map(module =>
                     module._id === action.moduleId ? action.module: module)
             }
+            break;
         default:
-            return {
-                modules: []
-            }
+            return state 
     }    
 }
 

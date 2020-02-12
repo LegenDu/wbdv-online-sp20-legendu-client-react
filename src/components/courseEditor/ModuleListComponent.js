@@ -6,14 +6,10 @@ export default class ModuleListComponent extends React.Component {
         this.props.findModulesForCourse(this.props.courseId)
     }
 
-    componentDidUpdate(prevProps) {
-        console.log("1" + this.props.moduleId)
-        console.log("2" + prevProps.moduleId)
-    }
-
     state = {
-        activeModuleId: this.props.moduleId,
-        editingModuleId:''
+        activeModuleId: '',
+        editingModuleId:'',
+        title: ''
     }
 
     render() {
@@ -40,9 +36,13 @@ export default class ModuleListComponent extends React.Component {
                             save={() => this.setState({
                                 editingModuleId: ''
                             })}
+                            change={(newTitle)=>
+                                module.title = newTitle
+                            }
                             editing={module._id === this.state.editingModuleId}
                             active={module._id === this.state.activeModuleId}
-                            module={module}/>)
+                            module={module}
+                            newTitle={this.state.newTitle}/>)
                 }
                 <li className="list-group-item my-2 mx-3 rounded wbdv-module-item-add-row pr-0">
                     <button className="btn btn-dark wbdv-module-item-add-btn"
