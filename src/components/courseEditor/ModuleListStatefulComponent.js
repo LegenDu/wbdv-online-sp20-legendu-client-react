@@ -1,7 +1,7 @@
 import React from "react";
 import ModuleListItemComponent from "./ModuleListItemComponent";
 
-export default class ModuleListComponent extends React.Component {
+export default class ModuleListStatefulComponent extends React.Component {
     componentDidMount() {
         this.props.findModulesForCourse(this.props.courseId)
     }
@@ -67,4 +67,4 @@ export default class ModuleListComponent extends React.Component {
 //             .then(modules => dispatch(findModulesForCourseAction(modules)))
 //         }
 //     })
-// )(ModuleListComponent)
+// )(ModuleListStatefulComponent)

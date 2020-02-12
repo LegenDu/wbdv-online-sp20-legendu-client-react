@@ -1,6 +1,6 @@
 import React from "react";
 // import ModuleListComponent from "./ModuleListComponent";
-import LessonTabsComponent from "./LessonTabsComponent";
+import LessonTabsComponent from "./LessonTabsStatefulComponent";
 import TopicPillsComponent from "./TopicPillsComponent"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {createStore, combineReducers} from "redux";

@@ -3,7 +3,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {createModule, findModuleForCourse} from "../services/ModuleService";
 import {findModulesForCourseAction, createModuleAction} from "../actions/ModuleActions";
-import ModuleListComponent from "../components/courseEditor/ModuleListComponent";
+import ModuleListStatefulComponent from "../components/courseEditor/ModuleListStatefulComponent";
 
 const stateToPropertyMapper = (state) => ({
     modules: state.modules.modules
@@ -23,6 +23,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
 const ModuleListContainer = connect(
     stateToPropertyMapper,
     dispatchToPropertyMapper
-)(ModuleListComponent)
+)(ModuleListStatefulComponent)
 
 export default ModuleListContainer

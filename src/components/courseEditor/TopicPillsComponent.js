@@ -6,12 +6,9 @@ import {findTopicsForLessonAction, updateTopicAction, createTopicAction, deletet
 
 class TopicPillsComponent extends React.Component {
     componentDidMount() {
-        console.log("1. lessonid: ", this.props.lessonId)
         this.props.findTopicsForLesson(this.props.lessonId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("2. lessonid: ", this.props.lessonId)
-        console.log("2. moduleId: ", this.props.moduleId)
         if(this.props.lessonId !== prevProps.lessonId || this.props.moduleId != prevProps.moduleId) {
             this.props.findTopicsForLesson(this.props.lessonId)
         }
@@ -23,9 +20,6 @@ class TopicPillsComponent extends React.Component {
     render() {
         return (
             <ul className="nav nav-pills wbdv-topic-pill-list">
-                {
-                    console.log('aaa: ', this.props.lessonId)
-                }
                 {
                     this.props.topics && this.props.topics.map(topic => 
                         <li className="nav-item wbdv-topic-pill"
@@ -41,11 +35,11 @@ class TopicPillsComponent extends React.Component {
                                 {
                                     this.state.editingTopicId !== topic._id &&
                                     <span>
-                                        <span>{topic.title}</span>
+                                        <span className="mr-1" >{topic.title}</span>
                                         <span onClick={() => {this.setState({
                                             topic: topic,
                                             editingTopicId: topic._id
-                                        })}}>
+                                            })}}>
                                             <i className="fas fa-pencil-alt"></i>
                                         </span>
                                     </span>    

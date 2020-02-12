@@ -4,7 +4,7 @@ import {updateLesson, findLessonsForModule, createLesson, deleteLesson, findAllL
 import {CREATE_LESSON, UPDATE_LESSON, DELETE_LESSON} from "../../actions/LessonActions"
 import {findLessonsForModuleAction, createLessonAction, updateLessonAction, deleteLessonAction, findAllLessonsAction} from "../../actions/LessonActions" 
 
-class LessonTabsComponent extends React.Component {
+class LessonTabsStatefulComponent extends React.Component {
     componentDidMount(){
         this.props.findLessonsForModule(this.props.moduleId)
     }
@@ -128,4 +128,4 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
 export default connect(
     stateToPropertyMapper,
     dispatcherToPropertyMapper
-)(LessonTabsComponent)
+)(LessonTabsStatefulComponent)
