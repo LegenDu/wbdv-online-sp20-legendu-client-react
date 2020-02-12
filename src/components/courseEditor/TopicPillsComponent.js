@@ -30,7 +30,7 @@ class TopicPillsComponent extends React.Component {
                                 this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`)
                             }}
                             key={topic._id}>
-                            <a className={`nav-link btn py-0 mx-1 border
+                            <span className={`nav-link btn py-0 mx-1 border
                                 ${(this.state.editingTopicId === topic._id || this.state.selectedTopicId === topic._id)?'active':''}`}>
                                 {
                                     this.state.editingTopicId !== topic._id &&
@@ -72,13 +72,13 @@ class TopicPillsComponent extends React.Component {
                                         </span>
                                     </span>
                                 }
-                            </a>
+                            </span>
                         </li>
                     )
                 }
                 <li class="nav-item wbdv-topic-pill">
-                    <a class="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border"
-                        onClick={()=>this.props.addTopic(this.props.lessonId)}>+</a>
+                    <span class="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border"
+                        onClick={()=>this.props.addTopic(this.props.lessonId)}>+</span>
                 </li>
             </ul>
         )

@@ -44,7 +44,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     deleteModule: (moduleId) => {
         fetch(`${MODULES_API_URL}/${moduleId}`, {method: 'DELETE'})
                 .then(response => response.json())
-                .then(status => dispatch({
+                .then(() => dispatch({
                     type: 'DELETE_MODULE',
                     moduleId: moduleId
                 }))

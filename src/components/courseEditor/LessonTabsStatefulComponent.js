@@ -37,7 +37,7 @@ class LessonTabsStatefulComponent extends React.Component {
                                     this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)    
                                 }}
                                 key={lesson._id}>
-                                <a className={`nav-link
+                                <span className={`nav-link
                                     ${(this.state.editingLessonId === lesson._id || this.state.selectedLessonId === lesson._id)?'active': ''}`}>
                                     {
                                         this.state.editingLessonId !== lesson._id &&
@@ -80,11 +80,11 @@ class LessonTabsStatefulComponent extends React.Component {
                                             </span>
                                         </span>
                                     }
-                                </a>
+                                </span>
                             </li>)
                     }
                     <li className="nav-item mx-2 my-1 py-0 px-2">
-                        <a onClick={()=>this.props.addLesson(this.props.moduleId)} className="nav-link wbdv-new-page-btn">+</a>
+                        <span onClick={()=>this.props.addLesson(this.props.moduleId)} className="nav-link wbdv-new-page-btn">+</span>
                     </li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
             )),
     updateLesson: async (lesson) => {
         updateLesson(lesson)
-        .then(result => 
+        .then(() => 
             dispatcher(updateLessonAction(lesson)))
     },
     addLesson: (moduleId) => 
@@ -113,7 +113,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
             dispatcher(createLessonAction(actualLesson))),
     deleteLesson: async (lessonId) =>
         deleteLesson(lessonId)
-        .then(status =>
+        .then(() =>
             dispatcher({
                 type: DELETE_LESSON,
                 lessonId: lessonId
