@@ -81,6 +81,11 @@ class CourseManagerContainer extends React.Component {
             })}))
     }
 
+    getCourseTitle = (courseId) => {
+        findCourseById(courseId).then(course =>{
+            return course.title})
+    }
+
     render() {
         return (
             <div className="container-fluid mx-0 px-0" style={{width: '100%'}}>
@@ -101,14 +106,16 @@ class CourseManagerContainer extends React.Component {
                            render={(props) => 
                             <CourseEditorComponent 
                                 {...props}
-                                courseId={props.match.params.courseId}/>}/>
+                                courseId={props.match.params.courseId}
+                                courses={this.state.courses}/>}/>
                     <Route path="/course-editor/:courseId/module/:moduleId"
                            exact={true}
                            render={(props) =>
                            <CourseEditorComponent
                                 {...props}
                                 moduleId={props.match.params.moduleId}
-                                courseId={props.match.params.courseId}/>
+                                courseId={props.match.params.courseId}
+                                courses={this.state.courses}/>
                             }/>  
                     <Route path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId"
                            exact={true}
@@ -117,7 +124,8 @@ class CourseManagerContainer extends React.Component {
                                 {...props}
                                 lessonId={props.match.params.lessonId}
                                 moduleId={props.match.params.moduleId}
-                                courseId={props.match.params.courseId}/>
+                                courseId={props.match.params.courseId}
+                                courses={this.state.courses}/>
                             }/>
                     <Route path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId/topic/:topicId"
                            exact={true}
@@ -127,7 +135,8 @@ class CourseManagerContainer extends React.Component {
                                 lessonId={props.match.params.lessonId}
                                 moduleId={props.match.params.moduleId}
                                 courseId={props.match.params.courseId}
-                                lessonId={props.match.params.lessonId}/>
+                                lessonId={props.match.params.lessonId}
+                                courses={this.state.courses}/>
                             }/>
                 </Router>
             </div>

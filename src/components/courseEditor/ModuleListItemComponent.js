@@ -4,8 +4,8 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {COURSES_MODULES_API_URL, MODULES_API_URL} from "../../common/constants"
 import {updateModule} from "../../services/ModuleService"
 
-const ModuleListItemComponent = ({save, edit, change, editing, module, deleteModule, updateModule, active, select}) =>  
-    <li className={`list-group-item wbdv-module-item my-2 mx-3 rounded ${active ? 'active': ''}`}
+const ModuleListItemComponent = ({save, edit, change, editing, module, deleteModule, updateModule, active, select}) =>  {
+    return (<li className={`list-group-item wbdv-module-item my-2 mx-3 rounded ${active ? 'active': ''}`}
         onClick={select}>
         {
             !editing &&
@@ -19,11 +19,11 @@ const ModuleListItemComponent = ({save, edit, change, editing, module, deleteMod
             editing &&
             <span>
                 <span>
-                    <input type="text" value={`${module.title}`}
+                    <input type="text" placeholder={`${module.title}`}
                         onChange={(e) => {
-                            const title = e.target.value
-                            change(title)
-                            }}
+                            const val = e.target.value
+                            module.title = val
+                        }}
                         /></span>
                 <span>
                     <span className="close wbdv-module-item-delete-btn"
@@ -34,7 +34,8 @@ const ModuleListItemComponent = ({save, edit, change, editing, module, deleteMod
                 </span>
             </span>
         }   
-    </li>
+    </li>)
+}
 
 
 const stateToPropertyMapper = (state) => ({})

@@ -103,7 +103,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
         )),
     updateTopic: async (topic) => {
         updateTopic(topic)
-        .then(topic => 
+        .then(result => 
             dispatch(updateTopicAction(topic)))
         },
     addTopic: (lessonId) => 

@@ -16,6 +16,7 @@ class LessonTabsComponent extends React.Component {
     state = {
         selectedLessonId: '',
         editingLessonId: '',
+        courseTitle: '',
         lesson: {
             title: '',
             _id: ''
@@ -26,9 +27,6 @@ class LessonTabsComponent extends React.Component {
         return(
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    {
-                        console.log("moduleId: ", this.props.moduleId)
-                    }
                     {
                         this.props.lessons && this.props.lessons.map(lesson => 
                             <li className="nav-item mx-2 my-1 py-0 px-4"
@@ -106,7 +104,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
             )),
     updateLesson: async (lesson) => {
         updateLesson(lesson)
-        .then(lesson => 
+        .then(result => 
             dispatcher(updateLessonAction(lesson)))
     },
     addLesson: (moduleId) => 

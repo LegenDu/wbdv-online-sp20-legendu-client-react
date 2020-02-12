@@ -18,7 +18,7 @@ const reducers = combineReducers({
 
 const store = createStore(reducers)
 
-const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, lessonId, history}) =>
+const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, lessonId, history, courses}) =>
     <Provider store={store}>
         <div>
             <div className="navbar wbdv-course-navbar navbar-expand-lg navbar-dark">
@@ -31,7 +31,11 @@ const CourseEditorComponent = ({hideEditor, match, courseId, moduleId, lessonId,
                     </Link>
                 </div>
                 <a className="navbar-brand wbdv-course-title">
-                    {courseId}
+                    {
+                        courses.map(course=>
+                            course._id === courseId ? course.title: ''
+                        )
+                    }
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
