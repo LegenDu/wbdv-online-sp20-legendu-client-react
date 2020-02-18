@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../cs5610-online-sp20-legendu-server-java/.idea/cs5610-online-sp20-legendu-server-java.iml" filepath="$PROJECT_DIR$/../cs5610-online-sp20-legendu-server-java/.idea/cs5610-online-sp20-legendu-server-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/wbdv-online-sp20-legendu-client-react.iml" filepath="$PROJECT_DIR$/.idea/wbdv-online-sp20-legendu-client-react.iml" />
+    </modules>
+  </component>
+</project>

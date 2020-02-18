@@ -28,6 +28,15 @@ const widgetReducer = (state = {
             return{
                 widgets: action.widget
             }
+        case "SAVE_ALL":
+            return{
+                widgets: state.widgets
+            }
+        case "UPDATE_WIDGET":
+            return{
+                    widgets: state.widgets.map(widget =>
+                        widget.id === action.id ? action.widget : widget)
+            }
         default:
             return state
     }

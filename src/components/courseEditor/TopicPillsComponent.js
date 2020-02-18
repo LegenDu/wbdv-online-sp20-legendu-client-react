@@ -76,8 +76,8 @@ class TopicPillsComponent extends React.Component {
                         </li>
                     )
                 }
-                <li class="nav-item wbdv-topic-pill">
-                    <span class="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border"
+                <li className="nav-item wbdv-topic-pill">
+                    <span className="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border"
                         onClick={()=>this.props.addTopic(this.props.lessonId)}>+</span>
                 </li>
             </ul>

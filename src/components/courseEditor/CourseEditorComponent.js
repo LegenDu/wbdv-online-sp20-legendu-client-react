@@ -20,7 +20,7 @@ const reducers = combineReducers({
 
 const store = createStore(reducers)
 
-const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, courses}) =>
+const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, courses, topicId}) =>
     <Provider store={store}>
         <div>
             <div className="navbar wbdv-course-navbar navbar-expand-lg navbar-dark">
@@ -56,7 +56,7 @@ const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, co
                             history={history}
                             courseId={courseId}/>
                     </div>
-                    <div className="col-lg-8">
+                    <div className="col-lg-8 pl-0">
                         <div className="mt-3">
                             <TopicPillsComponent 
                                 courseId={courseId}
@@ -64,12 +64,7 @@ const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, co
                                 lessonId={lessonId}
                                 history={history}/>
                         </div>
-                        <WidgetListComponent topicId={111}/>
-                        <div className="d-flex justify-content-end mt-2">
-                            <button className="btn d-flex justify-content-center mfr-0" id="wbdv-add-widget-btn">
-                                <i className="fas fa-plus-circle fa-add-btn p-0"></i>
-                            </button>
-                        </div>
+                        <WidgetListComponent topicId={topicId}/>
                     </div>
                 </div>   
             </div> 
