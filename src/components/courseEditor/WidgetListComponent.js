@@ -52,15 +52,6 @@ class WidgetList extends React.Component {
             })
     };
 
-    removeWidget = (widgetId) => {
-        this.props.deleteWidget(widgetId)
-            .then(status => {
-                this.setState(prev => {
-                    prev.widgetNum--;
-                    return prev
-                })
-            })
-    };
 
     saveWidget = (widget) => {
         this.props.updateWidget(widget.id, widget);
@@ -68,6 +59,11 @@ class WidgetList extends React.Component {
             editingWidgetId: '',
             widget: widget
         })
+    };
+
+
+    changeOrder = (order, dir) => {
+
     };
 
     saveAllWidgets = () => {
@@ -109,6 +105,7 @@ class WidgetList extends React.Component {
                             {widget.type === "HEADING" &&
                                 <HeadingWidget saveWidget={this.saveWidget}
                                              editing={this.state.widget.id === widget.id}
+                                               widgetNum={this.state.widgetNum}
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}
@@ -156,11 +153,12 @@ const dispatchToPropertyMapper = (dispatcher) => ({
             type: "UPDATE_WIDGET",
             widget: newWidget
         })),
-    deleteWidget: (widgetId) =>
+    deleteWidget: (widgetId, order) =>
         deleteWidget(widgetId)
             .then(status => dispatcher({
                 type: 'DELETE_WIDGET',
-                widgetId: widgetId
+                widgetId: widgetId,
+                order: order
             })),
     createWidget: (topicId, widget) =>
         createWidget(topicId, widget)

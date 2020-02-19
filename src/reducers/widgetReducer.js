@@ -18,7 +18,14 @@ const widgetReducer = (state = {
             }
         case 'DELETE_WIDGET':
             return {
-                widgets: state.widgets.filter(widget => widget.id !== action.widgetId)
+                // widgets: state.widgets.filter(widget => widget.id !== action.widgetId)
+                widgets: state.widgets.filter(widget => {
+                    if(widget.order > action.order){
+                        widget.order = widget.order - 1;
+                        console.log(widget.order)
+                    }
+                    return widget.id != action.widgetId
+                })
             }
         case "FIND_ALL_WIDGETS":
             return {
@@ -37,6 +44,9 @@ const widgetReducer = (state = {
                     widgets: state.widgets.map(widget =>
                         widget.id === action.id ? action.widget : widget)
             }
+        case "CHANGE_ORDER":
+            return state
+
         default:
             return state
     }

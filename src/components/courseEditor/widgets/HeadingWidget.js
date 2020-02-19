@@ -24,12 +24,21 @@ class HeadingWidget extends React.Component{
                                         <h3 className="d-inline">{this.state.widget.title}</h3>
                                     </div>
                                     <div className="col-5 d-flex justify-content-end align-self-center">
-                                        <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}>
+                                        {
+                                            this.state.widget.order !== 0 &&
+                                            <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}
+                                            onClick={() => this.props.changeOrder(this.state.widget.order, "UP")}>
                                             <i className="fas fa-arrow-up"/>
-                                        </span>
-                                        <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}>
-                                            <i className="fas fa-arrow-down"/>
-                                        </span>
+                                            </span>
+                                        }
+                                        {
+                                            this.state.widget.order !== (this.props.widgetNum - 1) &&
+                                                <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}
+                                                      onClick={() => this.props.changeOrder(this.state.widget.order, "DOWN")}>
+                                                    <i className="fas fa-arrow-down"/>
+                                                </span>
+                                        }
+
                                         <span className="float-right">
                                             <select className="custom-select" onChange={(e) => {
                                                 const newType = e.target.value;
@@ -49,7 +58,7 @@ class HeadingWidget extends React.Component{
                                                 <option value="PARAGRAPH">Paragraph</option>
                                             </select>
                                         </span>
-                                        <span onClick={() => this.props.removeWidget(this.props.widget.id)}>
+                                        <span onClick={() => this.props.deleteWidget(this.props.widget.id, this.props.widget.order)}>
                                             <i className="fas fa-times-circle fa-2x" style={{color: 'red'}}/>
                                         </span>
                                     </div>
