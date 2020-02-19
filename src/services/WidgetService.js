@@ -1,5 +1,5 @@
 export const findWidgetsForTopic = (topicId) =>
-    fetch("http://localhost:8080/topics/${topicId}/widgets")
+    fetch(`http://localhost:8080/widgets/${topicId}`)
         .then(response => response.json())
 
 export const findAllWidgets = () =>

@@ -7,7 +7,7 @@ class ParagraphWidget extends React.Component {
     }
     render() {
         return(
-            <ul className={`list-group round px-3  m-0 ${this.props.previewMode ? 'py-2': 'border py-0'}`}>
+            <ul className={`list-group round px-3 py-2 m-0 ${this.props.previewMode ? '': 'border'}`}>
                 {
                     !this.props.previewMode &&
                     <div className="p-0 m-0">

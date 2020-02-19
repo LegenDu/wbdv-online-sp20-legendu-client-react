@@ -26,7 +26,7 @@ const widgetReducer = (state = {
             }
         case "WIDGETS_FOR_TOPIC":
             return{
-                widgets: action.widget
+                widgets: action.widgets
             }
         case "SAVE_ALL":
             return{

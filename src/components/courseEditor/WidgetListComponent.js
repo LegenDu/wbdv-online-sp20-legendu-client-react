@@ -6,13 +6,22 @@ import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsFor
 
 class WidgetList extends React.Component {
     componentDidMount() {
-        // this.props.findWidgetsForTopic(this.props.topicId);
-        this.props.findAllWidgets();
+        this.props.findWidgetsForTopic(this.props.topicId)
+            .then(res => {
+                this.setState({
+                    widgetNum: this.props.widgets.length
+                })
+            })
     }
 
     componentDidUpdate(prevProps) {
         if(prevProps.topicId !== this.props.topicId) {
-            this.props.findWidgetsForTopic(this.props.topicId);
+            this.props.findWidgetsForTopic(this.props.topicId)
+                .then(res => {
+                    this.setState({
+                        widgetNum: this.props.widgets.length
+                    })
+                })
         }
     }
 
@@ -21,8 +30,37 @@ class WidgetList extends React.Component {
         widget:{
             id: ''
         },
-        previewMode: false
-    }
+        previewMode: false,
+        widgetNum: 0
+    };
+
+    addWidget = (topicId) => {
+        const widget = {
+            title: "Heading Widget",
+            type: "HEADING",
+            size: 1,
+            topicId: topicId,
+            order: this.state.widgetNum,
+            id: (new Date()).getTime() + ""
+        };
+        this.props.createWidget(topicId, widget)
+            .then(widget => {
+                this.setState(prev => {
+                    prev.widgetNum++;
+                    return prev
+                })
+            })
+    };
+
+    removeWidget = (widgetId) => {
+        this.props.deleteWidget(widgetId)
+            .then(status => {
+                this.setState(prev => {
+                    prev.widgetNum--;
+                    return prev
+                })
+            })
+    };
 
     saveWidget = (widget) => {
         this.props.updateWidget(widget.id, widget);
@@ -30,14 +68,21 @@ class WidgetList extends React.Component {
             editingWidgetId: '',
             widget: widget
         })
-    }
+    };
 
+    saveAllWidgets = () => {
+        this.props.widgets.map(widget => {
+            if(widget.topicId === this.props.topicId)
+                this.props.updateWidget(widget.id, widget)
+        })
+    };
 
     render(){
         return(
             <ul className="list-group mx-1">
                 <li className="list-group-item mb-0 d-flex justify-content-end">
-                    <button className="btn btn-success py-0 px-3">Save</button>
+                    <button className="btn btn-success py-0 px-3"
+                            onClick={() => this.saveAllWidgets()}>Save</button>
                     <button className="btn ">Preview</button>
                     {
                         this.state.previewMode &&
@@ -61,23 +106,27 @@ class WidgetList extends React.Component {
                 {
                     this.props.widgets && this.props.widgets.map(widget =>
                         <li className="list-group-item px-1 rounded" key={widget.id}>
-                            {widget.type === "HEADING" && <HeadingWidget saveWidget={this.saveWidget}
-                                                                         editing={this.state.widget.id === widget.id}
-                                                                         {...this.props}
-                                                                         widget={widget}
-                                                                         previewMode={this.state.previewMode}/>}
-                            {widget.type === "PARAGRAPH" && <ParagraphWidget saveWidget={this.saveWidget}
-                                                                             editing={this.state.widget.id === widget.id}
-                                                                             {...this.props}
-                                                                             widget={widget}
-                                                                             previewMode={this.state.previewMode}/>}
+                            {widget.type === "HEADING" &&
+                                <HeadingWidget saveWidget={this.saveWidget}
+                                             editing={this.state.widget.id === widget.id}
+                                             {...this.props}
+                                             widget={widget}
+                                             previewMode={this.state.previewMode}
+                                             removeWidget={this.removeWidget}/>}
+                            {widget.type === "PARAGRAPH" &&
+                                <ParagraphWidget saveWidget={this.saveWidget}
+                                             editing={this.state.widget.id === widget.id}
+                                             {...this.props}
+                                             widget={widget}
+                                             previewMode={this.state.previewMode}
+                                             removeWidget={this.removeWidget}/>}
                         </li>)
                 }
                 <li>
                     {
                         !this.state.previewMode &&
                         <div className="d-flex justify-content-end mt-2">
-                        <span onClick={() => this.props.createWidget(this.props.topicId)}
+                        <span onClick={() => this.addWidget(this.props.topicId)}
                               className="btn d-flex justify-content-center mfr-0" id="wbdv-add-widget-btn">
                             <i className="fas fa-plus-circle fa-add-btn p-0"/>
                         </span>
@@ -113,14 +162,8 @@ const dispatchToPropertyMapper = (dispatcher) => ({
                 type: 'DELETE_WIDGET',
                 widgetId: widgetId
             })),
-    createWidget: (topicId) =>
-        createWidget(topicId, {
-            title: "Heading Widget",
-            type: "HEADING",
-            size: 1,
-            topicId: topicId,
-            id: (new Date()).getTime() + ""
-        })
+    createWidget: (topicId, widget) =>
+        createWidget(topicId, widget)
             .then(actualWidget => dispatcher({
                 type: "ADD_WIDGET",
                 widget: actualWidget
@@ -131,7 +174,7 @@ const dispatchToPropertyMapper = (dispatcher) => ({
                 type: "FIND_ALL_WIDGETS",
                 widgets: actualWidgets
             }))
-})
+});
 
 export default connect
 (stateToPropertyMapper, dispatchToPropertyMapper)
