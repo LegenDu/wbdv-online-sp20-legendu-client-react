@@ -47,7 +47,7 @@ class ParagraphWidget extends React.Component {
                                         <option value="PARAGRAPH">Paragraph</option>
                                     </select>
                                 </span>
-                                    <span onClick={() => this.props.deleteWidget(this.props.widget.id)}>
+                                    <span onClick={() => this.props.removeWidget(this.props.widget.id)}>
                                     <i className="fas fa-times-circle fa-2x" style={{color: 'red'}}/>
                                 </span>
                                 </div>
