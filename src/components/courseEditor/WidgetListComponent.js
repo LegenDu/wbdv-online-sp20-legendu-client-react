@@ -64,12 +64,12 @@ class WidgetList extends React.Component {
 
     changeWidgetOrder = (order, dir) => {
         if(dir === "UP"){
-            console.log(order)
-            // this.props.changeOrder(order - 1, order)
+            // console.log(order)
+            this.props.changeOrder(order - 1, order)
         }
         else if(dir === "DOWN")
-            console.log(order)
-            // this.props.changeOrder(order, order + 1);
+            // console.log(order)
+            this.props.changeOrder(order, order + 1);
     };
 
     saveAllWidgets = () => {

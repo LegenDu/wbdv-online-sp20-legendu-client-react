@@ -32,11 +32,11 @@ const widgetReducer = (state = {
             };
         case "FIND_ALL_WIDGETS":
             return {
-                widgets: action.widgets
+                widgets: action.widgets.sort((a, b) => a.order - b.order)
             };
         case "WIDGETS_FOR_TOPIC":
             return{
-                widgets: action.widgets
+                widgets: action.widgets.sort((a, b) => a.order - b.order)
             };
         case "SAVE_ALL":
             return{
@@ -56,13 +56,7 @@ const widgetReducer = (state = {
                     else if(widget.order === action.order2)
                         widget.order = action.order1;
                     return widget
-                }).sort((a, b) => a.order > b.order)
-                //     function(w1, w2){
-                //     if(w1.order < w2.order)
-                //         return 1;
-                //     else
-                //         return 0;
-                // })
+                }).sort((a, b) => a.order - b.order)
             };
 
         default:
