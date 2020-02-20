@@ -62,14 +62,35 @@ class WidgetList extends React.Component {
     };
 
 
-    changeOrder = (order, dir) => {
-
+    changeWidgetOrder = (order, dir) => {
+        if(dir === "UP"){
+            console.log(order)
+            // this.props.changeOrder(order - 1, order)
+        }
+        else if(dir === "DOWN")
+            console.log(order)
+            // this.props.changeOrder(order, order + 1);
     };
 
     saveAllWidgets = () => {
         this.props.widgets.map(widget => {
             if(widget.topicId === this.props.topicId)
                 this.props.updateWidget(widget.id, widget)
+        })
+    };
+
+    removeWidget = (widgetId, order) => {
+        this.props.deleteWidget(widgetId, order)
+            .then(status => {
+                this.props.widgets.map(widget => {
+                    if(widget.order >= order)
+                        this.props.updateWidget(widget.id, widget)
+                })
+            }).then(widget => {
+            this.setState(prev => {
+                prev.widgetNum--;
+                return prev
+            })
         })
     };
 
@@ -105,10 +126,11 @@ class WidgetList extends React.Component {
                             {widget.type === "HEADING" &&
                                 <HeadingWidget saveWidget={this.saveWidget}
                                              editing={this.state.widget.id === widget.id}
-                                               widgetNum={this.state.widgetNum}
+                                             widgetNum={this.state.widgetNum}
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}
+                                             changeWidgetOrder={this.changeWidgetOrder}
                                              removeWidget={this.removeWidget}/>}
                             {widget.type === "PARAGRAPH" &&
                                 <ParagraphWidget saveWidget={this.saveWidget}
@@ -116,6 +138,7 @@ class WidgetList extends React.Component {
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}
+                                             changeWidgetOrder={this.changeWidgetOrder}
                                              removeWidget={this.removeWidget}/>}
                         </li>)
                 }
@@ -171,7 +194,14 @@ const dispatchToPropertyMapper = (dispatcher) => ({
             .then(actualWidgets => dispatcher({
                 type: "FIND_ALL_WIDGETS",
                 widgets: actualWidgets
-            }))
+            })),
+    changeOrder: (order1, order2) => {
+        dispatcher({
+            type: "CHANGE_ORDER",
+            order1: order1,
+            order2: order2
+        })
+    }
 });
 
 export default connect

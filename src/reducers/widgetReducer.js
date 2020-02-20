@@ -15,37 +15,55 @@ const widgetReducer = (state = {
                     ...state.widgets,
                     action.widget
                 ]
-            }
+            };
         case 'DELETE_WIDGET':
             return {
                 // widgets: state.widgets.filter(widget => widget.id !== action.widgetId)
                 widgets: state.widgets.filter(widget => {
                     if(widget.order > action.order){
                         widget.order = widget.order - 1;
-                        console.log(widget.order)
+                        console.log(widget)
                     }
-                    return widget.id != action.widgetId
+                    if(widget.id !== action.widgetId)
+                        return true
+                    else
+                        return false
                 })
-            }
+            };
         case "FIND_ALL_WIDGETS":
             return {
                 widgets: action.widgets
-            }
+            };
         case "WIDGETS_FOR_TOPIC":
             return{
                 widgets: action.widgets
-            }
+            };
         case "SAVE_ALL":
             return{
                 widgets: state.widgets
-            }
+            };
         case "UPDATE_WIDGET":
             return{
                     widgets: state.widgets.map(widget =>
                         widget.id === action.id ? action.widget : widget)
-            }
+            };
         case "CHANGE_ORDER":
-            return state
+            return {
+                widgets: state.widgets.map(widget => {
+                    // console.log(action.order1, "+", action.order2)
+                    if(widget.order === action.order1)
+                        widget.order = action.order2;
+                    else if(widget.order === action.order2)
+                        widget.order = action.order1;
+                    return widget
+                }).sort((a, b) => a.order > b.order)
+                //     function(w1, w2){
+                //     if(w1.order < w2.order)
+                //         return 1;
+                //     else
+                //         return 0;
+                // })
+            };
 
         default:
             return state

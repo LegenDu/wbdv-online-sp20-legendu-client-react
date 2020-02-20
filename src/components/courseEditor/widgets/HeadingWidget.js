@@ -27,14 +27,14 @@ class HeadingWidget extends React.Component{
                                         {
                                             this.state.widget.order !== 0 &&
                                             <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}
-                                            onClick={() => this.props.changeOrder(this.state.widget.order, "UP")}>
+                                            onClick={() => this.props.changeWidgetOrder(this.state.widget.order, "UP")}>
                                             <i className="fas fa-arrow-up"/>
                                             </span>
                                         }
                                         {
                                             this.state.widget.order !== (this.props.widgetNum - 1) &&
                                                 <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}
-                                                      onClick={() => this.props.changeOrder(this.state.widget.order, "DOWN")}>
+                                                      onClick={() => this.props.changeWidgetOrder(this.state.widget.order, "DOWN")}>
                                                     <i className="fas fa-arrow-down"/>
                                                 </span>
                                         }
@@ -58,7 +58,7 @@ class HeadingWidget extends React.Component{
                                                 <option value="PARAGRAPH">Paragraph</option>
                                             </select>
                                         </span>
-                                        <span onClick={() => this.props.deleteWidget(this.props.widget.id, this.props.widget.order)}>
+                                        <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.order)}>
                                             <i className="fas fa-times-circle fa-2x" style={{color: 'red'}}/>
                                         </span>
                                     </div>
