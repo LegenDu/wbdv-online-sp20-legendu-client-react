@@ -105,8 +105,11 @@ class HeadingWidget extends React.Component{
                             </li>
                             <li className="list-group-item px-1 pt-0">
                                 <h3 className="d-inline">Preview</h3>
-                                <span onClick={()=> this.props.saveWidget(this.state.widget)}
-                                      className="btn btn-primary float-right">save</span>
+                                {
+                                    !this.props.orderChanged &&
+                                    <span onClick={()=> this.props.saveWidget(this.state.widget)}
+                                          className="btn btn-primary float-right">Save</span>
+                                }
                             </li>
                         </div>
                 }

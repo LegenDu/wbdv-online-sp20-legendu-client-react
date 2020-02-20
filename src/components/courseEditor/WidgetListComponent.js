@@ -31,7 +31,8 @@ class WidgetList extends React.Component {
             id: ''
         },
         previewMode: false,
-        widgetNum: 0
+        widgetNum: 0,
+        orderChanged: false
     };
 
     addWidget = (topicId) => {
@@ -70,12 +71,18 @@ class WidgetList extends React.Component {
         else if(dir === "DOWN")
             // console.log(order)
             this.props.changeOrder(order, order + 1);
+        this.setState({
+            orderChanged: true
+        })
     };
 
     saveAllWidgets = () => {
         this.props.widgets.map(widget => {
             if(widget.topicId === this.props.topicId)
                 this.props.updateWidget(widget.id, widget)
+        })
+        this.setState({
+            orderChanged: false
         })
     };
 
@@ -127,6 +134,7 @@ class WidgetList extends React.Component {
                                 <HeadingWidget saveWidget={this.saveWidget}
                                              editing={this.state.widget.id === widget.id}
                                              widgetNum={this.state.widgetNum}
+                                             orderChanged={this.state.orderChanged}
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}
@@ -136,6 +144,7 @@ class WidgetList extends React.Component {
                                 <ParagraphWidget saveWidget={this.saveWidget}
                                              editing={this.state.widget.id === widget.id}
                                              widgetNum={this.state.widgetNum}
+                                             orderChanged={this.state.orderChanged}
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}

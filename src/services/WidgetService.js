@@ -1,18 +1,20 @@
+const svrUrl = "https://wbdv-cs5610-legendu-java-a5.herokuapp.com"
+
 export const findWidgetsForTopic = (topicId) =>
-    fetch(`http://localhost:8080/widgets/${topicId}`)
+    fetch(`${svrUrl}/widgets/${topicId}`)
         .then(response => response.json())
 
 export const findAllWidgets = () =>
-    fetch("http://localhost:8080/widgets")
+    fetch(`${svrUrl}/widgets`)
         .then(response => response.json())
 
 export const deleteWidget = (widgetId) =>
-    fetch(`http://localhost:8080/widgets/${widgetId}`, {
+    fetch(`${svrUrl}/widgets/${widgetId}`, {
         method: "DELETE"
     }).then(response => response.json())
 
 export const createWidget = (topicId, widget) =>
-    fetch(`http://localhost:8080/topics/${topicId}/widgets`, {
+    fetch(`${svrUrl}/topics/${topicId}/widgets`, {
         method: "POST",
         body: JSON.stringify(widget),
         headers: {
@@ -22,7 +24,7 @@ export const createWidget = (topicId, widget) =>
         .then(response => response.json())
 
 export const updateWidget = (widgetId, newWidget) =>
-    fetch(`http://localhost:8080/widgets/${widgetId}`, {
+    fetch(`${svrUrl}/widgets/${widgetId}`, {
         method: 'PUT',
         body: JSON.stringify(newWidget),
         headers: {
