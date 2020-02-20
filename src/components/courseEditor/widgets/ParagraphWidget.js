@@ -90,7 +90,7 @@ class ParagraphWidget extends React.Component {
                                 !this.props.orderChanged &&
                                 <span onClick={()=> this.props.saveWidget(this.state.widget)}
                                       className="btn btn-primary float-right">Save</span>
-                            }}
+                            }
                         </li>
                     </div>
                 }
