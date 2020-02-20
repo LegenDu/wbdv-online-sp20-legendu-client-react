@@ -135,6 +135,7 @@ class WidgetList extends React.Component {
                             {widget.type === "PARAGRAPH" &&
                                 <ParagraphWidget saveWidget={this.saveWidget}
                                              editing={this.state.widget.id === widget.id}
+                                             widgetNum={this.state.widgetNum}
                                              {...this.props}
                                              widget={widget}
                                              previewMode={this.state.previewMode}
