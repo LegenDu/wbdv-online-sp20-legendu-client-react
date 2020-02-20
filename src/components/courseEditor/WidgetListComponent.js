@@ -106,7 +106,7 @@ class WidgetList extends React.Component {
             <ul className="list-group mx-1">
                 <li className="list-group-item mb-0 d-flex justify-content-end">
                     <button className="btn btn-success py-0 px-3"
-                            onClick={() => this.saveAllWidgets()}>Save</button>
+                            onClick={() => this.saveAllWidgets()}>Save All</button>
                     <button className="btn ">Preview</button>
                     {
                         this.state.previewMode &&
