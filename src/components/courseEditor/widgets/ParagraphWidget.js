@@ -36,23 +36,25 @@ class ParagraphWidget extends React.Component {
                                     <select className="custom-select" onChange={(e) => {
                                         const newType = e.target.value;
                                         let newTitle = "";
+                                        let newStyle = "";
                                         if (newType === "HEADING")
                                             newTitle = "Heading Widget";
+                                        else if(newType === "LIST") {
+                                            newTitle = "List Widget"
+                                            newStyle = "UNORDERED"
+                                        }
                                         this.setState(prevState => {
-                                            this.state.widget.type = newType;
-                                            this.state.widget.title = newTitle;
-                                            return {
-                                                widget: {
-                                                    ...this.state.widget,
-                                                    type: newType
-                                                }
-                                            }
+                                            prevState.widget.type = newType;
+                                            prevState.widget.title = newTitle;
+                                            prevState.widget.style = newStyle;
+                                            return prevState
                                         });
                                         this.props.updateWidget(this.state.widget.id, this.state.widget)
                                     }}
                                             value={this.state.widget.type}>
                                         <option value="HEADING">Heading</option>
                                         <option value="PARAGRAPH">Paragraph</option>
+                                        <option value="LIST">List</option>
                                     </select>
                                 </span>
                                     <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.widOrder)}>
@@ -62,7 +64,7 @@ class ParagraphWidget extends React.Component {
                             </div>
                         </li>
                         <li className="list-group-item px-1 py-2">
-                        <textarea className="form-control" placeholder="Paragraph Text" value={this.state.widget.text}
+                            <textarea className="form-control" placeholder="Paragraph Text" value={this.state.widget.text}
                                   onChange={(e) => {
                                       const newText = e.target.value;
                                       this.setState(prevState => {

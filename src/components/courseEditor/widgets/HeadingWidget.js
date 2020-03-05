@@ -42,20 +42,25 @@ class HeadingWidget extends React.Component{
                                         <span className="float-right">
                                             <select className="custom-select" onChange={(e) => {
                                                 const newType = e.target.value;
+                                                let newStyle = "";
                                                 let newTitle = "";
                                                 if (newType === "PARAGRAPH")
                                                     newTitle = "Paragraph Widget";
+                                                else if(newType === "LIST") {
+                                                    newTitle = "List Widget"
+                                                    newStyle = "UNORDERED"
+                                                }
                                                 this.setState(prevState => {
-                                                    this.state.widget.type = newType;
-                                                    this.state.widget.title = newTitle;
-                                                    return {widget: {
-                                                        ...prevState.widget,
-                                                        type: newType,
-                                                        title: newTitle}}});
+                                                    prevState.widget.type = newType;
+                                                    prevState.widget.title = newTitle;
+                                                    prevState.widget.style = newStyle;
+                                                    return prevState
+                                                });
                                                 this.props.updateWidget(this.state.widget.id, this.state.widget)}}
                                                 value={this.state.widget.type}>
                                                 <option value="HEADING">Heading</option>
                                                 <option value="PARAGRAPH">Paragraph</option>
+                                                <option value="LIST">List</option>
                                             </select>
                                         </span>
                                         <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.widOrder)}>
