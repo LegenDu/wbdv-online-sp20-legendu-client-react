@@ -9,7 +9,7 @@ const widgetReducer = (state = {
     widgets: widgets
 }, action) => {
     switch (action.type) {
-        case "ADD_WIDGET":
+        case "CREATE_WIDGET":
             return {
                 widgets: [
                     ...state.widgets,

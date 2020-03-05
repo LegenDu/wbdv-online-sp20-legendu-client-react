@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import HeadingWidget from "./widgets/HeadingWidget";
 import ParagraphWidget from "./widgets/ParagraphWidget";
+import {findWidgetsForTopicAction, updateWidgetAction, deleteWidgetAction, createWidgetAction, findAllWidgetsAction, changeOrderAction} from "../../actions/WidgetActions"
 import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsForTopic} from "../../services/WidgetService";
 
 class WidgetList extends React.Component {
@@ -77,12 +78,13 @@ class WidgetList extends React.Component {
     };
 
     saveAllWidgets = () => {
+        this.props.widgets.map(widget => {
+            // if(widget.topicId === this.props.topicId){
+                this.props.updateWidget(widget.id, widget)
+            // }
+        });
         this.setState({
             orderChanged: false
-        })
-        return this.props.widgets.map(widget => {
-            if(widget.topicId === this.props.topicId)
-                this.props.updateWidget(widget.id, widget)
         })
     };
 
@@ -176,41 +178,21 @@ const stateToPropertyMapper = (state) => ({
 const dispatchToPropertyMapper = (dispatcher) => ({
     findWidgetsForTopic: (topicId) =>
         findWidgetsForTopic(topicId)
-            .then(widgets => dispatcher({
-                type: "WIDGETS_FOR_TOPIC",
-                widgets: widgets
-            })),
+            .then(widgets => dispatcher(findWidgetsForTopicAction(widgets))),
     updateWidget: (widgetId, newWidget) =>
         updateWidget(widgetId, newWidget)
-        .then(status => dispatcher({
-            type: "UPDATE_WIDGET",
-            widget: newWidget
-        })),
+        .then(status => dispatcher(updateWidgetAction(widgetId, newWidget))),
     deleteWidget: (widgetId, order) =>
         deleteWidget(widgetId)
-            .then(status => dispatcher({
-                type: 'DELETE_WIDGET',
-                widgetId: widgetId,
-                order: order
-            })),
+            .then(status => dispatcher(deleteWidgetAction(widgetId, order))),
     createWidget: (topicId, widget) =>
         createWidget(topicId, widget)
-            .then(actualWidget => dispatcher({
-                type: "ADD_WIDGET",
-                widget: actualWidget
-        })),
+            .then(actualWidget => dispatcher(createWidgetAction(actualWidget))),
     findAllWidgets: () =>
         findAllWidgets()
-            .then(actualWidgets => dispatcher({
-                type: "FIND_ALL_WIDGETS",
-                widgets: actualWidgets
-            })),
+            .then(actualWidgets => dispatcher(findAllWidgetsAction(actualWidgets))),
     changeOrder: (order1, order2) => {
-        dispatcher({
-            type: "CHANGE_ORDER",
-            order1: order1,
-            order2: order2
-        })
+        dispatcher(changeOrderAction(order1, order2))
     }
 });
 

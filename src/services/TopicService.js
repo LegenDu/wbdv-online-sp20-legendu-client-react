@@ -46,7 +46,7 @@ export const updateTopic = async (topic) => {
 }
 
 export const deleteTopic = async (topicId) => {
-    let response = await fetch(`${TOPICS_API_URL}/${topicId}`, {
+    let response = await fetch(`${svrUrl}/topics/${topicId}`, {
         method: 'DELETE'
     })
     return response.json()

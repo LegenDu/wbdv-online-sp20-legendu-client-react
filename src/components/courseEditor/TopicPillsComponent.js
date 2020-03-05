@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {findTopicsForLesson, updateTopic, createTopic, deleteTopic} from "../../services/TopicService"
-import {DELETE_TOPIC} from "../../actions/TopicActions"
-import {findTopicsForLessonAction, updateTopicAction, createTopicAction} from "../../actions/TopicActions"
+import {findTopicsForLessonAction, updateTopicAction, createTopicAction, deleteTopicAction} from "../../actions/TopicActions"
 
 class TopicPillsComponent extends React.Component {
     componentDidMount() {
@@ -96,7 +95,7 @@ class TopicPillsComponent extends React.Component {
 
 const stateToPropertyMapper = (state) => ({
     topics: state.topics.topics
-})
+});
 
 const dispatchToPropertyMapper = (dispatch) => ({
     findTopicsForLesson: topicId =>
@@ -115,12 +114,13 @@ const dispatchToPropertyMapper = (dispatch) => ({
             dispatch(createTopicAction(actualTopic))),
     deleteTopic: async (topicId) =>
         deleteTopic(topicId)
-        .then(status =>
-            dispatch({
-                type: DELETE_TOPIC,
-                topicId: topicId
-        }))
-})
+        .then(status => {
+            if(status == 1)
+                dispatch(deleteTopicAction(topicId))
+            else
+                alert("Can't delete topic because topic still has remaining widgets.")
+        })
+});
 
 export default connect(
     stateToPropertyMapper,

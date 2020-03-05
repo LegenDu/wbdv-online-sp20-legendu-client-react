@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {updateLesson, findLessonsForModule, createLesson, deleteLesson, findAllLessons} from "../../services/LessonService";
-import {DELETE_LESSON} from "../../actions/LessonActions"
-import {findLessonsForModuleAction, createLessonAction, updateLessonAction, findAllLessonsAction} from "../../actions/LessonActions"
+import {findLessonsForModuleAction, createLessonAction, updateLessonAction, findAllLessonsAction, deleteLessonAction} from "../../actions/LessonActions"
 
 class LessonTabsStatefulComponent extends React.Component {
     componentDidMount(){
@@ -114,10 +113,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
     deleteLesson: async (lessonId) =>
         deleteLesson(lessonId)
         .then(() =>
-            dispatcher({
-                type: DELETE_LESSON,
-                lessonId: lessonId
-            })),
+            dispatcher(deleteLessonAction(lessonId))),
     findAllLessons: () =>
         findAllLessons()
             .then(lessons =>
