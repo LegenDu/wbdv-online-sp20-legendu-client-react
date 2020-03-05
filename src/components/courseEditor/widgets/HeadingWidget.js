@@ -47,9 +47,11 @@ class HeadingWidget extends React.Component{
                                                 if (newType === "PARAGRAPH")
                                                     newTitle = "Paragraph Widget";
                                                 else if(newType === "LIST") {
-                                                    newTitle = "List Widget"
-                                                    newStyle = "UNORDERED"
+                                                    newTitle = "List Widget";
+                                                    newStyle = "UNORDERED";
                                                 }
+                                                else if(newType === "IMAGE")
+                                                    newTitle = "Image Widget";
                                                 this.setState(prevState => {
                                                     prevState.widget.type = newType;
                                                     prevState.widget.title = newTitle;
@@ -61,6 +63,7 @@ class HeadingWidget extends React.Component{
                                                 <option value="HEADING">Heading</option>
                                                 <option value="PARAGRAPH">Paragraph</option>
                                                 <option value="LIST">List</option>
+                                                <option value="IMAGE">Image</option>
                                             </select>
                                         </span>
                                         <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.widOrder)}>

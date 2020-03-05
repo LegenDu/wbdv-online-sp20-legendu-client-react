@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import HeadingWidget from "./widgets/HeadingWidget";
 import ParagraphWidget from "./widgets/ParagraphWidget";
 import ListWidget from "./widgets/ListWidget"
+import ImageWidget from "./widgets/ImageWidget";
 import {findWidgetsForTopicAction, updateWidgetAction, deleteWidgetAction, createWidgetAction, findAllWidgetsAction, changeOrderAction} from "../../actions/WidgetActions"
 import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsForTopic} from "../../services/WidgetService";
 
@@ -163,6 +164,17 @@ class WidgetList extends React.Component {
                                             previewMode={this.state.previewMode}
                                             changeWidgetOrder={this.changeWidgetOrder}
                                             removeWidget={this.removeWidget}/>
+                            }
+                            {widget.type === "IMAGE" &&
+                            <ImageWidget saveWidget={this.saveWidget}
+                                        editing={this.state.widget.id === widget.id}
+                                        widgetNum={this.state.widgetNum}
+                                        orderChanged={this.state.orderChanged}
+                                        {...this.props}
+                                        widget={widget}
+                                        previewMode={this.state.previewMode}
+                                        changeWidgetOrder={this.changeWidgetOrder}
+                                        removeWidget={this.removeWidget}/>
                             }
                         </li>)
                 }

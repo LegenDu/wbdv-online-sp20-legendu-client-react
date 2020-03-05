@@ -1,7 +1,7 @@
 import React from "react";
 
 
-class ListWidget extends React.Component{
+class ImageWidget extends React.Component{
     state = {
         editing: this.props.editing,
         widget: this.props.widget,
@@ -44,19 +44,22 @@ class ListWidget extends React.Component{
                                                 const newType = e.target.value;
                                                 let newTitle = "";
                                                 let newStyle = "";
+                                                let newUrl = "";
                                                 if (newType === "HEADING")
                                                     newTitle = "Heading Widget";
                                                 else if (newType === "PARAGRAPH")
                                                     newTitle = "Paragraph Widget";
-                                                else if(newType === "IMAGE")
-                                                    newTitle = "Image Widget";
+                                                else if (newType === "LIST"){
+                                                    newTitle = "List Widget";
+                                                    newStyle = "UNORDERED";
+                                                }
                                                 this.setState(prevState => {
                                                     prevState.widget.type = newType;
                                                     prevState.widget.title = newTitle;
                                                     prevState.widget.style = newStyle;
+                                                    prevState.widget.url = newUrl;
                                                     return prevState
                                                 });
-                                                console.log('sss', this.state.widget)
                                                 this.props.updateWidget(this.state.widget.id, this.state.widget)}}
                                                     value={this.state.widget.type}>
                                                 <option value="HEADING">Heading</option>
@@ -72,28 +75,26 @@ class ListWidget extends React.Component{
                             </div>
                         </li>
                         <li className="list-group-item px-1 py-2">
-                            <textarea className="form-control" placeholder="Enter one list item per line" value={this.state.widget.text}
-                                      onChange={(e) => {
-                                          const newText = e.target.value;
-                                          this.setState(prevState => {
-                                              this.state.widget.text = newText;
-                                              prevState.widget.text = newText;
-                                              return prevState
-                                          })
-                                      }}/>
+                            <input className="form-control" type="text" placeholder="Image URL" value={this.state.widget.url}
+                                   style={{width:'100%'}}
+                                   onChange={(e) => {
+                                       const newUrl = e.target.value;
+                                       this.setState(prevState => {
+                                           prevState.widget.url = newUrl;
+                                           return prevState;
+                                       })
+                                   }}/>
                         </li>
                         <li className="list-group-item d-flex flex-column px-1 py-2">
-                            <select className="custom-select" style={{width: '100%'}}
-                                    onChange={(e) => {
-                                        const newStyle = e.target.value
-                                        this.setState(prevState => {
-                                            prevState.widget.style = newStyle
-                                            return prevState
-                                        })}}
-                                    value={this.state.widget.style}>
-                                <option value="UNORDERED">Unordered List</option>
-                                <option value="ORDERED">Ordered List</option>
-                            </select>
+                            <input className="form-control" type="text" placeholder="Widget Name" value={this.state.widget.name}
+                                   style={{width:'100%'}}
+                                   onChange={(e) => {
+                                       const newName = e.target.value;
+                                       this.setState(prevState => {
+                                           prevState.widget.name = newName;
+                                           return prevState;
+                                       })
+                                   }}/>
                         </li>
                         <li className="list-group-item px-1 pt-0">
                             <h3 className="d-inline">Preview</h3>
@@ -107,28 +108,11 @@ class ListWidget extends React.Component{
                 }
 
                 <li className="list-group-item px-1 py-2">
-                    <ul className="list-unstyled p-0 m-0">
-                        {
-                            this.state.widget.style && this.state.widget.style === "UNORDERED" &&
-                            <ul>
-                                {this.state.widget.text && this.state.widget.text.split(/[\s\n]/).map(text =>
-                                    <li className="p-0">{text}</li>
-                                )}
-                            </ul>
-                        }
-                        {
-                            this.state.widget.style && this.state.widget.style === "ORDERED" &&
-                            <ol>
-                                {this.state.widget.text && this.state.widget.text.split(/[\s\n]/).map(text =>
-                                    <li className="p-0">{text}</li>
-                                )}
-                            </ol>
-                        }
-                    </ul>
+                    <img src={this.state.widget.url}></img>
                 </li>
             </ul>
         )
     }
 }
 
-export default ListWidget
+export default ImageWidget
