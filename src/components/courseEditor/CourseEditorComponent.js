@@ -3,7 +3,7 @@ import React from "react";
 import LessonTabsComponent from "./LessonTabsStatefulComponent";
 import TopicPillsComponent from "./TopicPillsComponent"
 import WidgetListComponent from "./WidgetListComponent"
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {createStore, combineReducers} from "redux";
 import {Provider} from "react-redux"
 import modules from '../../reducers/moduleReducer'

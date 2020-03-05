@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import {updateLesson, findLessonsForModule, createLesson, deleteLesson, findAllLessons} from "../../services/LessonService";
-import {CREATE_LESSON, UPDATE_LESSON, DELETE_LESSON} from "../../actions/LessonActions"
-import {findLessonsForModuleAction, createLessonAction, updateLessonAction, deleteLessonAction, findAllLessonsAction} from "../../actions/LessonActions" 
+import {DELETE_LESSON} from "../../actions/LessonActions"
+import {findLessonsForModuleAction, createLessonAction, updateLessonAction, findAllLessonsAction} from "../../actions/LessonActions"
 
 class LessonTabsStatefulComponent extends React.Component {
     componentDidMount(){

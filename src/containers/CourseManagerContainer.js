@@ -2,7 +2,7 @@ import React from 'react';
 import CourseEditorComponent from "../components/courseEditor/CourseEditorComponent"
 import  {createCourse, findAllCourses, deleteCourse, updateCourse, findCourseById} from "../services/CourseService"
 import CourseListComponent from '../components/courseList/CourseListComponent';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom"
+import {BrowserRouter as Router, Route} from "react-router-dom"
 
 class CourseManagerContainer extends React.Component {
     state = {

@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import {findTopicsForLesson, updateTopic, createTopic, deleteTopic} from "../../services/TopicService"
-import {FIND_TOPICS_FOR_LESSON, UPDATE_TOPIC, CREATE_TOPIC, DELETE_TOPIC, FIND_ALL_TOPICS} from "../../actions/TopicActions"
-import {findTopicsForLessonAction, updateTopicAction, createTopicAction, deleteTopicAction, findAllTopics} from "../../actions/TopicActions"
+import {DELETE_TOPIC} from "../../actions/TopicActions"
+import {findTopicsForLessonAction, updateTopicAction, createTopicAction} from "../../actions/TopicActions"
 
 class TopicPillsComponent extends React.Component {
     componentDidMount() {
-        this.props.lessonId && this.props.findTopicsForLesson(this.props.lessonId)
+        this.props.findTopicsForLesson(this.props.lessonId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.lessonId !== prevProps.lessonId || this.props.moduleId != prevProps.moduleId) {

@@ -9,31 +9,26 @@ const lessonReducer = (state={lessons: []}, action) => {
                     ...state.lessons,
                     action.lesson
                 ]
-            }
-            break;
+            };
         case DELETE_LESSON:
             return {
                 lessons: state.lessons.filter(
                     lesson => lesson._id !== action.lessonId)
-            }
-            break;
+            };
         case UPDATE_LESSON:
             return {
                 lessons: state.lessons.map(lesson =>
                     lesson._id === action.lessonId ? action.lesson : lesson
                 )
-            }
-            break;
+            };
         case FIND_LESSONS_FOR_MODULE:
             return {
                 lessons: action.lessons
-            }
-            break;
+            };
         case FIND_ALL_LESSONS:
             return {
                 lessons: action.lessons
-            }
-            break;
+            };
         default:
             return state
     }

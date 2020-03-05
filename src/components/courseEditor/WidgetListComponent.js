@@ -6,7 +6,7 @@ import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsFor
 
 class WidgetList extends React.Component {
     componentDidMount() {
-        let topicId = this.props.topicId;
+        var topicId = this.props.topicId;
         if(!this.props.topicId)
             topicId = -1;
         this.props.findWidgetsForTopic(topicId)
@@ -77,12 +77,12 @@ class WidgetList extends React.Component {
     };
 
     saveAllWidgets = () => {
-        this.props.widgets.map(widget => {
-            if(widget.topicId === this.props.topicId)
-                this.props.updateWidget(widget.id, widget)
-        })
         this.setState({
             orderChanged: false
+        })
+        return this.props.widgets.map(widget => {
+            if(widget.topicId === this.props.topicId)
+                this.props.updateWidget(widget.id, widget)
         })
     };
 
