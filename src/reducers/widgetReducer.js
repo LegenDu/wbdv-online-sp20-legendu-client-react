@@ -18,11 +18,9 @@ const widgetReducer = (state = {
             };
         case 'DELETE_WIDGET':
             return {
-                // widgets: state.widgets.filter(widget => widget.id !== action.widgetId)
                 widgets: state.widgets.filter(widget => {
-                    if(widget.order > action.order){
-                        widget.order = widget.order - 1;
-                        console.log(widget)
+                    if(widget.widOrder > action.widOrder){
+                        widget.widOrder = widget.widOrder - 1;
                     }
                     if(widget.id !== action.widgetId)
                         return true
@@ -32,11 +30,11 @@ const widgetReducer = (state = {
             };
         case "FIND_ALL_WIDGETS":
             return {
-                widgets: action.widgets.sort((a, b) => a.order - b.order)
+                widgets: action.widgets.sort((a, b) => a.widOrder - b.widOrder)
             };
         case "WIDGETS_FOR_TOPIC":
             return{
-                widgets: action.widgets.sort((a, b) => a.order - b.order)
+                widgets: action.widgets.sort((a, b) => a.widOrder - b.widOrder)
             };
         case "SAVE_ALL":
             return{
@@ -50,13 +48,12 @@ const widgetReducer = (state = {
         case "CHANGE_ORDER":
             return {
                 widgets: state.widgets.map(widget => {
-                    // console.log(action.order1, "+", action.order2)
-                    if(widget.order === action.order1)
-                        widget.order = action.order2;
-                    else if(widget.order === action.order2)
-                        widget.order = action.order1;
+                    if(widget.widOrder === action.order1)
+                        widget.widOrder = action.order2;
+                    else if(widget.widOrder === action.order2)
+                        widget.widOrder = action.order1;
                     return widget
-                }).sort((a, b) => a.order - b.order)
+                }).sort((a, b) => a.widOrder - b.widOrder)
             };
 
         default:

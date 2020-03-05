@@ -19,7 +19,13 @@ export const createTopicAction = (actualTopic) => ({
 })
 
 export const DELETE_TOPIC = "DELETE_TOPIC"
-export const deletetopicAction = (topics) => ({
+export const deleteTopicAction = (topics) => ({
     type: DELETE_TOPIC,
+    topics: topics
+})
+
+export const FIND_ALL_TOPICS = "FIND_ALL_TOPICS"
+export const findAllTopics = (topics) => ({
+    type: FIND_ALL_TOPICS,
     topics: topics
 })

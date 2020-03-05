@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import {findTopicsForLesson, updateTopic, createTopic, deleteTopic} from "../../services/TopicService"
-import {FIND_TOPICS_FOR_LESSON, UPDATE_TOPIC, CREATE_TOPIC, DELETE_TOPIC} from "../../actions/TopicActions"
-import {findTopicsForLessonAction, updateTopicAction, createTopicAction, deletetopicAction} from "../../actions/TopicActions"
+import {FIND_TOPICS_FOR_LESSON, UPDATE_TOPIC, CREATE_TOPIC, DELETE_TOPIC, FIND_ALL_TOPICS} from "../../actions/TopicActions"
+import {findTopicsForLessonAction, updateTopicAction, createTopicAction, deleteTopicAction, findAllTopics} from "../../actions/TopicActions"
 
 class TopicPillsComponent extends React.Component {
     componentDidMount() {
-        this.props.findTopicsForLesson(this.props.lessonId)
+        this.props.lessonId && this.props.findTopicsForLesson(this.props.lessonId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.lessonId !== prevProps.lessonId || this.props.moduleId != prevProps.moduleId) {
@@ -17,6 +17,15 @@ class TopicPillsComponent extends React.Component {
         selectedTopicId : '',
         editingTopicId : ''
     }
+
+    createTopic = () =>{
+        const topic = {
+            title: "New Topic",
+            lessonId: this.props.lessonId
+        }
+        this.props.addTopic(this.props.lessonId, topic)
+    }
+
     render() {
         return (
             <ul className="nav nav-pills wbdv-topic-pill-list">
@@ -25,27 +34,27 @@ class TopicPillsComponent extends React.Component {
                         <li className="nav-item wbdv-topic-pill"
                             onClick={() => {
                                 this.setState({
-                                    selectedTopicId: topic._id
+                                    selectedTopicId: topic.id
                                 })
-                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`)
+                                this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic.id}`)
                             }}
-                            key={topic._id}>
+                            key={topic.id}>
                             <span className={`nav-link btn py-0 mx-1 border
-                                ${(this.state.editingTopicId === topic._id || this.state.selectedTopicId === topic._id)?'active':''}`}>
+                                ${(this.state.editingTopicId === topic.id || this.state.selectedTopicId === topic.id)?'active':''}`}>
                                 {
-                                    this.state.editingTopicId !== topic._id &&
+                                    this.state.editingTopicId !== topic.id &&
                                     <span>
                                         <span className="mr-1" >{topic.title}</span>
                                         <span onClick={() => {this.setState({
                                             topic: topic,
-                                            editingTopicId: topic._id
+                                            editingTopicId: topic.id
                                             })}}>
-                                            <i className="fas fa-pencil-alt"></i>
+                                            <i className="fas fa-pencil-alt"/>
                                         </span>
                                     </span>    
                                 }
                                 {
-                                    this.state.editingTopicId === topic._id &&
+                                    this.state.editingTopicId === topic.id &&
                                     <span>
                                         <input onChange={(e) => {
                                             const newTitle = e.target.value
@@ -59,15 +68,15 @@ class TopicPillsComponent extends React.Component {
                                         value={this.state.topic.title} />
                                         <span>
                                             <span onClick={()=>{
-                                                this.props.deleteTopic(topic._id)
+                                                this.props.deleteTopic(topic.id)
                                                 .then(
                                                     this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic`))
                                                 }}>
-                                                <i className="fas fa-trash-alt mr-1"></i>
+                                                <i className="fas fa-trash-alt mr-1"/>
                                             </span>
                                             <span onClick={()=>this.props.updateTopic(this.state.topic)
                                                 .then(()=>this.setState({editingTopicId:''}))}>
-                                                <i className="fas fa-check"></i>
+                                                <i className="fas fa-check"/>
                                             </span>
                                         </span>
                                     </span>
@@ -78,7 +87,7 @@ class TopicPillsComponent extends React.Component {
                 }
                 <li className="nav-item wbdv-topic-pill">
                     <span className="nav-link wbdv-topic-add-btn btn py-0 px-2 mx-1 border"
-                        onClick={()=>this.props.addTopic(this.props.lessonId)}>+</span>
+                        onClick={()=>this.createTopic()}>+</span>
                 </li>
             </ul>
         )
@@ -100,8 +109,8 @@ const dispatchToPropertyMapper = (dispatch) => ({
         .then(result => 
             dispatch(updateTopicAction(topic)))
         },
-    addTopic: (lessonId) => 
-        createTopic(lessonId)
+    addTopic: (lessonId, topic) =>
+        createTopic(lessonId, topic)
         .then(actualTopic =>
             dispatch(createTopicAction(actualTopic))),
     deleteTopic: async (topicId) =>

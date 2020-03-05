@@ -1,7 +1,8 @@
-const svrUrl = "https://wbdv-cs5610-legendu-java-a5.herokuapp.com"
+// const svrUrl = "https://wbdv-cs5610-legendu-java-a5.herokuapp.com"
+const svrUrl = "http://localhost:8080/api"
 
 export const findWidgetsForTopic = (topicId) =>
-    fetch(`${svrUrl}/widgets/${topicId}`)
+    fetch(`${svrUrl}/topics/${topicId}/widgets`)
         .then(response => response.json())
 
 export const findAllWidgets = () =>

@@ -3,7 +3,7 @@ import ModuleListItemComponent from "./ModuleListItemComponent";
 
 export default class ModuleListStatefulComponent extends React.Component {
     componentDidMount() {
-        this.props.findModulesForCourse(this.props.courseId)
+        this.props.courseId && this.props.findModulesForCourse(this.props.courseId)
     }
 
     state = {

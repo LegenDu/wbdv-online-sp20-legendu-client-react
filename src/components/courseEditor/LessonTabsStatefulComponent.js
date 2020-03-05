@@ -6,7 +6,7 @@ import {findLessonsForModuleAction, createLessonAction, updateLessonAction, dele
 
 class LessonTabsStatefulComponent extends React.Component {
     componentDidMount(){
-        this.props.findLessonsForModule(this.props.moduleId)
+        this.props.moduleId && this.props.findLessonsForModule(this.props.moduleId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.moduleId !== prevProps.moduleId) {

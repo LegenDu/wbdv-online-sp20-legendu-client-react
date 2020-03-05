@@ -6,7 +6,10 @@ import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsFor
 
 class WidgetList extends React.Component {
     componentDidMount() {
-        this.props.findWidgetsForTopic(this.props.topicId)
+        let topicId = this.props.topicId;
+        if(!this.props.topicId)
+            topicId = -1;
+        this.props.findWidgetsForTopic(topicId)
             .then(res => {
                 this.setState({
                     widgetNum: this.props.widgets.length
@@ -15,7 +18,7 @@ class WidgetList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.topicId !== this.props.topicId) {
+        if(prevProps.topicId !== this.props.topicId || prevProps.lessonId !== this.props.lessonId) {
             this.props.findWidgetsForTopic(this.props.topicId)
                 .then(res => {
                     this.setState({
@@ -41,8 +44,7 @@ class WidgetList extends React.Component {
             type: "HEADING",
             size: 1,
             topicId: topicId,
-            order: this.state.widgetNum,
-            id: (new Date()).getTime() + ""
+            widOrder: this.state.widgetNum
         };
         this.props.createWidget(topicId, widget)
             .then(widget => {
@@ -65,11 +67,9 @@ class WidgetList extends React.Component {
 
     changeWidgetOrder = (order, dir) => {
         if(dir === "UP"){
-            // console.log(order)
             this.props.changeOrder(order - 1, order)
         }
         else if(dir === "DOWN")
-            // console.log(order)
             this.props.changeOrder(order, order + 1);
         this.setState({
             orderChanged: true
@@ -90,7 +90,7 @@ class WidgetList extends React.Component {
         this.props.deleteWidget(widgetId, order)
             .then(status => {
                 this.props.widgets.map(widget => {
-                    if(widget.order >= order)
+                    if(widget.widOrder >= order)
                         this.props.updateWidget(widget.id, widget)
                 })
             }).then(widget => {

@@ -40,25 +40,25 @@ const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, co
                     }
                 </span>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"/>
                 </button>
-                <LessonTabsComponent 
+                <LessonTabsComponent
                     courseId={courseId}
                     moduleId={match.params.moduleId}
-                    history={history}/>    
+                    history={history}/>
             </div>
 
             <div className="container-fluid mx-0 px-0">
                 <div className="row" id="wbdv-module-div">
                     <div className="col-lg-4 wbdv-module-col">
-                        <ModuleListContainer 
+                        <ModuleListContainer
                             moduleId={moduleId}
                             history={history}
                             courseId={courseId}/>
                     </div>
                     <div className="col-lg-8 pl-0">
                         <div className="mt-3">
-                            <TopicPillsComponent 
+                            <TopicPillsComponent
                                 courseId={courseId}
                                 moduleId={match.params.moduleId}
                                 lessonId={lessonId}
@@ -66,10 +66,10 @@ const CourseEditorComponent = ({match, courseId, moduleId, lessonId, history, co
                         </div>
                         <WidgetListComponent topicId={topicId}/>
                     </div>
-                </div>   
-            </div> 
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+                </div>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"/>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"/>
         </div>
     </Provider>
 

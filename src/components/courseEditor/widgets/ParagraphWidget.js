@@ -18,17 +18,17 @@ class ParagraphWidget extends React.Component {
                                 </div>
                                 <div className="col-6 d-flex justify-content-end align-self-center">
                                     {
-                                        this.state.widget.order !== 0 &&
+                                        this.state.widget.widOrder !== 0 &&
                                         <span className="border px-2 py-1 mr-1 rounded"
                                               style={{backgroundColor: '#f0bc2e'}}
-                                              onClick={() => this.props.changeWidgetOrder(this.state.widget.order, "UP")}>
+                                              onClick={() => this.props.changeWidgetOrder(this.state.widget.widOrder, "UP")}>
                                             <i className="fas fa-arrow-up"/>
                                         </span>
                                     }
                                     {
-                                        this.state.widget.order !== (this.props.widgetNum - 1) &&
+                                        this.state.widget.widOrder !== (this.props.widgetNum - 1) &&
                                         <span className="border px-2 py-1 mr-1 rounded" style={{backgroundColor: '#f0bc2e'}}
-                                             onClick={() => this.props.changeWidgetOrder(this.state.widget.order, "DOWN")}>
+                                             onClick={() => this.props.changeWidgetOrder(this.state.widget.widOrder, "DOWN")}>
                                             <i className="fas fa-arrow-down"/>
                                         </span>
                                     }
@@ -55,7 +55,7 @@ class ParagraphWidget extends React.Component {
                                         <option value="PARAGRAPH">Paragraph</option>
                                     </select>
                                 </span>
-                                    <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.order)}>
+                                    <span onClick={() => this.props.removeWidget(this.props.widget.id, this.props.widget.widOrder)}>
                                     <i className="fas fa-times-circle fa-2x" style={{color: 'red'}}/>
                                 </span>
                                 </div>
