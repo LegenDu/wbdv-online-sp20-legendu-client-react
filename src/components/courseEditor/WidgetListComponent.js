@@ -9,7 +9,7 @@ import {findAllWidgets, createWidget, deleteWidget, updateWidget, findWidgetsFor
 
 class WidgetList extends React.Component {
     componentDidMount() {
-        var topicId = this.props.topicId;
+        let topicId = this.props.topicId;
         if(!this.props.topicId)
             topicId = -1;
         this.props.findWidgetsForTopic(topicId)
@@ -43,7 +43,7 @@ class WidgetList extends React.Component {
 
     addWidget = (topicId) => {
         const widget = {
-            title: "Heading Widget",
+            value: "Heading Widget",
             type: "HEADING",
             size: 1,
             topicId: topicId,
@@ -70,10 +70,11 @@ class WidgetList extends React.Component {
 
     changeWidgetOrder = (order, dir) => {
         if(dir === "UP"){
-            this.props.changeOrder(order - 1, order)
+            this.props.changeOrder(order - 1, order);
         }
-        else if(dir === "DOWN")
+        else if(dir === "DOWN"){
             this.props.changeOrder(order, order + 1);
+        }
         this.setState({
             orderChanged: true
         })
@@ -82,7 +83,7 @@ class WidgetList extends React.Component {
     saveAllWidgets = () => {
         this.props.widgets.map(widget => {
             // if(widget.topicId === this.props.topicId){
-                this.props.updateWidget(widget.id, widget)
+            this.props.updateWidget(widget.id, widget)
             // }
         });
         this.setState({
@@ -94,8 +95,10 @@ class WidgetList extends React.Component {
         this.props.deleteWidget(widgetId, order)
             .then(status => {
                 this.props.widgets.map(widget => {
-                    if(widget.widOrder >= order)
+                    if(widget.widOrder >= order){
+                        widget.widOrder--;
                         this.props.updateWidget(widget.id, widget)
+                    }
                 })
             }).then(widget => {
             this.setState(prev => {

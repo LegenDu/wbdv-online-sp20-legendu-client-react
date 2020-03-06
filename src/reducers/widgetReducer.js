@@ -23,7 +23,7 @@ const widgetReducer = (state = {
                         widget.widOrder = widget.widOrder - 1;
                     }
                     if(widget.id !== action.widgetId)
-                        return true
+                        return true;
                     else
                         return false
                 })

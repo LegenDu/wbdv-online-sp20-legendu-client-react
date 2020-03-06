@@ -33,7 +33,7 @@ export const findAllWidgetsAction = (widgets) => ({
 
 export const CHANGE_ORDER = "CHANGE_ORDER";
 export const changeOrderAction = (order1, order2) => ({
-    type: "CHANGE_ORDER",
+    type: CHANGE_ORDER,
     order1: order1,
     order2: order2
 });

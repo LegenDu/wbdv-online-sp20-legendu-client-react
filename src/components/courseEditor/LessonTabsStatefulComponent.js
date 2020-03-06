@@ -5,7 +5,7 @@ import {findLessonsForModuleAction, createLessonAction, updateLessonAction, find
 
 class LessonTabsStatefulComponent extends React.Component {
     componentDidMount(){
-        this.props.moduleId && this.props.findLessonsForModule(this.props.moduleId)
+        this.props.findLessonsForModule(this.props.moduleId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.moduleId !== prevProps.moduleId) {
@@ -32,7 +32,7 @@ class LessonTabsStatefulComponent extends React.Component {
                                 onClick={() => {
                                     this.setState({
                                         selectedLessonId: lesson._id
-                                    })
+                                    });
                                     this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${lesson._id}`)    
                                 }}
                                 key={lesson._id}>

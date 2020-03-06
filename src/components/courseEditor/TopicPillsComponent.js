@@ -14,14 +14,18 @@ class TopicPillsComponent extends React.Component {
     }
     state={
         selectedTopicId : '',
-        editingTopicId : ''
-    }
+        editingTopicId : '',
+        topic: {
+            title: '',
+            _id: ''
+        }
+    };
 
     createTopic = () =>{
         const topic = {
             title: "New Topic",
             lessonId: this.props.lessonId
-        }
+        };
         this.props.addTopic(this.props.lessonId, topic)
     }
 
@@ -34,7 +38,7 @@ class TopicPillsComponent extends React.Component {
                             onClick={() => {
                                 this.setState({
                                     selectedTopicId: topic.id
-                                })
+                                });
                                 this.props.history.push(`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic.id}`)
                             }}
                             key={topic.id}>
@@ -57,14 +61,12 @@ class TopicPillsComponent extends React.Component {
                                     <span>
                                         <input onChange={(e) => {
                                             const newTitle = e.target.value
-                                            this.setState(prevState => ({
-                                                topic: {
-                                                    ...prevState.topic,
-                                                    title: newTitle
-                                                }
-                                            }))
+                                            this.setState(prevState => {
+                                                prevState.topic.title = newTitle
+                                                return prevState
+                                            })
                                         }}
-                                        value={this.state.topic.title} />
+                                        value={this.state.topic.title}/>
                                         <span>
                                             <span onClick={()=>{
                                                 this.props.deleteTopic(topic.id)

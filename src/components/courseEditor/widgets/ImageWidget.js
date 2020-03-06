@@ -21,7 +21,7 @@ class ImageWidget extends React.Component{
                         <li className="list-group-item p-0 m-0">
                             <div className="row">
                                 <div className="col-7">
-                                    <h3 className="d-inline">{this.state.widget.title}</h3>
+                                    <h3 className="d-inline">{this.state.widget.value}</h3>
                                 </div>
                                 <div className="col-5 d-flex justify-content-end align-self-center">
                                     {
@@ -42,20 +42,20 @@ class ImageWidget extends React.Component{
                                     <span className="float-right">
                                             <select className="custom-select" onChange={(e) => {
                                                 const newType = e.target.value;
-                                                let newTitle = "";
+                                                let newValue = "";
                                                 let newStyle = "";
                                                 let newUrl = "";
                                                 if (newType === "HEADING")
-                                                    newTitle = "Heading Widget";
+                                                    newValue = "Heading Widget";
                                                 else if (newType === "PARAGRAPH")
-                                                    newTitle = "Paragraph Widget";
+                                                    newValue = "Paragraph Widget";
                                                 else if (newType === "LIST"){
-                                                    newTitle = "List Widget";
+                                                    newValue = "List Widget";
                                                     newStyle = "UNORDERED";
                                                 }
                                                 this.setState(prevState => {
                                                     prevState.widget.type = newType;
-                                                    prevState.widget.title = newTitle;
+                                                    prevState.widget.value = newValue;
                                                     prevState.widget.style = newStyle;
                                                     prevState.widget.url = newUrl;
                                                     return prevState
@@ -108,7 +108,7 @@ class ImageWidget extends React.Component{
                 }
 
                 <li className="list-group-item px-1 py-2">
-                    <img src={this.state.widget.url}></img>
+                    <img src={this.state.widget.url} style={{width: "100%"}}></img>
                 </li>
             </ul>
         )

@@ -14,7 +14,7 @@ class ParagraphWidget extends React.Component {
                         <li className="list-group-item p-0">
                             <div className="row">
                                 <div className="col-6">
-                                    <h3 className="d-inline">{this.state.widget.title}</h3>
+                                    <h3 className="d-inline">{this.state.widget.value}</h3>
                                 </div>
                                 <div className="col-6 d-flex justify-content-end align-self-center">
                                     {
@@ -35,19 +35,19 @@ class ParagraphWidget extends React.Component {
                                     <span className="float-right">
                                     <select className="custom-select" onChange={(e) => {
                                         const newType = e.target.value;
-                                        let newTitle = "";
+                                        let newValue = "";
                                         let newStyle = "";
                                         if (newType === "HEADING")
-                                            newTitle = "Heading Widget";
+                                            newValue = "Heading Widget";
                                         else if(newType === "LIST") {
-                                            newTitle = "List Widget";
+                                            newValue = "List Widget";
                                             newStyle = "UNORDERED";
                                         }
                                         else if(newType === "IMAGE")
-                                            newTitle = "Image Widget";
+                                            newValue = "Image Widget";
                                         this.setState(prevState => {
                                             prevState.widget.type = newType;
-                                            prevState.widget.title = newTitle;
+                                            prevState.widget.value = newValue;
                                             prevState.widget.style = newStyle;
                                             return prevState
                                         });
